@@ -21,4 +21,36 @@ describe("generateBoardFromMatrix", () => {
     expect(root.querySelectorAll(".border-top").length).toBe(1);
     expect(root.querySelectorAll(".col-mid").length).toBe(3);
   });
+
+  it("can add event listners on each square", () => {
+    generateBoardFromMatrix("#root");
+
+    const root = document.querySelector("#root");
+    if (!root) {
+      throw new Error("couldnt find root node for test");
+    }
+
+    const div = document.querySelector("#a")!;
+    // @ts-ignore
+    div.click();
+
+    expect(div.textContent).toBe("Div clicked!");
+  });
+
+  it("A user cant click on a sqaure that has already been clicked on", () => {
+    generateBoardFromMatrix("#root");
+
+    const root = document.querySelector("#root");
+    if (!root) {
+      throw new Error("couldnt find root node for test");
+    }
+
+    const div = document.querySelector("#a")!;
+    // @ts-ignore
+    div.click();
+
+    expect(div.textContent).toBe("Div clicked!");
+
+    expect(div.click()).toBeFalsy();
+  });
 });

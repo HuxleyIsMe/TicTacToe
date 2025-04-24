@@ -108,6 +108,11 @@ button:focus-visible {
 .col {
   width: 100px;
   height: 100px;
+  cursor: pointer;
+}
+
+.col:hover::after {
+  content: "pick me";
 }
 
 .border-bottom {
