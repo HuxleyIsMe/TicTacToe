@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -23,10 +23,12 @@ a:hover {
 }
 
 body {
+  background: black;
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
+  width: 100vw;
   min-height: 100vh;
 }
 
@@ -40,6 +42,13 @@ h1 {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
 }
 
 .logo {
@@ -95,7 +104,38 @@ button:focus-visible {
   }
 }
 
+.title {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 50px);
+  height: 150px;
+}
+
+.header-top {
+  transform: skew(-10deg) rotate(-10deg) translateY(0px);
+}
+
+.header-mid {
+  transform: skew(-10deg) rotate(-10deg) translateY(-60px);
+}
+
+.header-bottom {
+  transform: skew(-10deg) rotate(-10deg) translateY(-120px);
+}
+.header {
+  margin: 10px 0px;
+  background: -webkit-linear-gradient(rgb(255, 18, 18) 30%, rgb(255, 215, 38));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+  width: 118px;
+  font-size: 4em;
+}
+
 .row {
+  transform: translateY(90px);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -134,4 +174,10 @@ button:focus-visible {
 .col-mid {
   border-left: 2pt solid black;
   border-right: 2pt solid black;
+}
+
+#restartButton {
+  transform: translateY(120px);
+  color: black;
+  margin: 24px;
 }

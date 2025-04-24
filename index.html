@@ -3,11 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/src/components/board.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Castoro+Titling&family=Permanent+Marker&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Come play tic tac toe</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="container">
+      <div class="title">
+        <h2 class="header-top header">Tic</h2>
+        <h2 class="header-mid header">Tac</h2>
+        <h2 class="header-bottom header">Toe</h2>
+      </div>
+      <div id="app"></div>
+    </div>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

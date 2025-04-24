@@ -40,23 +40,77 @@ export class Board {
 
   renderBoard() {
     document.querySelector<HTMLDivElement>(this.root)!.innerHTML = `
-    <div id='commentator'></div>
-    <div class='row border-bottom'>
-        <div id='a' class='col'  tabindex='1' data-hover-text="pick me im number 1"></div>
-        <div id='b' class='col   col-mid' tabindex='2' data-hover-text="second the best"></div>
-        <div id='c' class='col'  tabindex='3' data-hover-text="your foe is quaking"></div>
+    <div id="commentator"></div>
+    <div class="row border-bottom">
+      <div
+        id="a"
+        class="col"
+        tabindex="1"
+        aria-label="top left square empty"
+        data-hover-text="pick me im number 1"
+      ></div>
+      <div
+        id="b"
+        class="col col-mid"
+        tabindex="2"
+        aria-label="top middle square empty"
+        data-hover-text="second the best"
+      ></div>
+      <div
+        id="c"
+        class="col"
+        tabindex="3"
+        aria-label="top right square empty"
+        data-hover-text="your foe is quaking"
+      ></div>
     </div>
-    <div class='row'>
-        <div  id='d' class='col ' tabindex='4'  data-hover-text="such art this game"></div>
-        <div  id='e' class='col col-mid' tabindex='5'  data-hover-text="you will always win"></div>
-        <div  id='f' class='col '  tabindex='6' data-hover-text="neutral good"></div>
+    <div class="row">
+      <div
+        id="d"
+        class="col"
+        tabindex="4"
+        aria-label="middle left square empty"
+        data-hover-text="such art this game"
+      ></div>
+      <div
+        id="e"
+        class="col col-mid"
+        tabindex="5"
+        aria-label="middle middle square empty"
+        data-hover-text="you will always win"
+      ></div>
+      <div
+        id="f"
+        class="col"
+        tabindex="6"
+        aria-label="middle right square empty"
+        data-hover-text="neutral good"
+      ></div>
     </div>
-    <div class='row border-top'>
-        <div id='g' class='col'  tabindex='7' data-hover-text="pick me"></div>
-        <div id='h'  class='col  col-mid' tabindex='8'  data-hover-text="no me"></div>
-        <div id='i'  class='col'  tabindex='9' data-hover-text="pick the other one"></div>
+    <div class="row border-top">
+      <div
+        id="g"
+        class="col"
+        tabindex="7"
+        aria-label="bottom left square empty"
+        data-hover-text="pick me"
+      ></div>
+      <div
+        id="h"
+        class="col col-mid"
+        tabindex="8"
+        aria-label="bottom middle square empty"
+        data-hover-text="no me"
+      ></div>
+      <div
+        id="i"
+        class="col"
+        tabindex="9"
+        aria-label="bottom right square empty"
+        data-hover-text="pick the other one"
+      ></div>
     </div>
-    <button id='restartButton'>Restart</button>
+    <button id="restartButton">Restart</button>
 `;
   }
 
