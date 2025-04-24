@@ -1,14 +1,21 @@
 type CELLS = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
+type Player = "X" | "O";
 
+/**
+ * This is our Tic Tac Toe Board class it will generate us a game of tic tac toe thats
+ * playable for the whole family
+ */
 export class Board {
-  root: string;
-  turn: string;
-  hasWinner: boolean;
-  gameGrid: string[];
-  cells: CELLS[];
-  cellToGridMap: Record<CELLS, number>;
-  gameOver: boolean;
-  turns: number;
+  private root: string;
+  private turn: Player;
+  private hasWinner: boolean;
+  private gameGrid: string[];
+  private cells: CELLS[];
+  private cellToGridMap: Record<CELLS, number>;
+  private gameOver: boolean;
+  private turns: number;
+  private cellToListeners: Record<CELLS, AbortController>;
+
   constructor(root: string) {
     this.root = root;
     this.turn = "X";
@@ -28,10 +35,12 @@ export class Board {
       h: 7,
       i: 8,
     };
+    this.cellToListeners = {} as Record<CELLS, AbortController>;
   }
 
-  start(): void {
+  renderBoard() {
     document.querySelector<HTMLDivElement>(this.root)!.innerHTML = `
+    <div id='commentator'></div>
     <div class='row border-bottom'>
         <div id='a' class='col'  data-hover-text="pick me im number 1"></div>
         <div id='b' class='col col-mid' data-hover-text="second the best"></div>
@@ -47,8 +56,22 @@ export class Board {
         <div id='h'  class='col col-mid' data-hover-text="no me"></div>
         <div id='i'  class='col' data-hover-text="pick the other one"></div>
     </div>
+    <button id='restartButton'>Restart</button>
 `;
+  }
+
+  start(): void {
+    this.renderBoard();
     this.attachListeners();
+  }
+
+  reset() {
+    Object.values(this.cellToListeners).forEach((c) => c.abort());
+    this.gameGrid = new Array(9).fill("");
+    this.turns = 0;
+    this.hasWinner = false;
+    this.gameOver = false;
+    this.start();
   }
 
   checkForWinner() {
@@ -76,28 +99,46 @@ export class Board {
     });
   }
 
+  handleTurn(element: HTMLElement): void {
+    element.style.background = this.turn === "X" ? "yellow" : "blue";
+    element.style.color = this.turn === "X" ? "black" : "white";
+    element.innerHTML = `<span>${this.turn}</span>`;
+    this.gameGrid[this.cellToGridMap[element.id as CELLS]] = this.turn;
+    this.turns++;
+    if (this.turns === 9 || this.hasWinner) {
+      this.gameOver = true;
+      console.log("game over");
+    }
+    this.turn = this.turn === "X" ? "O" : "X";
+  }
+
   handleClick(element: HTMLElement): void {
     if (element.innerHTML) {
       // contents already
       return;
     }
-    element.innerHTML = `<span>${this.turn}</span>`;
-
-    this.gameGrid[this.cellToGridMap[element.id as CELLS]] = this.turn;
+    this.handleTurn(element);
     this.checkForWinner();
-    this.turns++;
-    if (this.turns === 8) {
-      this.gameOver = true;
-    }
-    this.turn = this.turn === "X" ? "O" : "X";
+    this.removeEventListener(element.id as CELLS);
+  }
+
+  removeEventListener(id: CELLS) {
+    this.cellToListeners[id].abort();
   }
 
   attachListeners(): void {
+    document
+      .querySelector(`#restartButton`)!
+      .addEventListener("click", () => this.reset());
     this.cells.forEach((cell) => {
+      const controller = new AbortController();
+      this.cellToListeners[cell] = controller;
       document
         .querySelector(`#${cell}`)!
-        .addEventListener("click", (e) =>
-          this.handleClick(e.currentTarget as HTMLElement)
+        .addEventListener(
+          "click",
+          (e) => this.handleClick(e.currentTarget as HTMLElement),
+          { signal: controller.signal }
         );
     });
   }
