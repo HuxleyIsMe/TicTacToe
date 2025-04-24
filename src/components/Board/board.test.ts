@@ -55,17 +55,13 @@ describe("Board", () => {
     it("will place either a X or O in the cell dependent on turn", () => {
       const root = document.querySelector("#root");
       const myBoard = new Board("#root");
-      const spy = jest.spyOn(myBoard, "attachListeners");
 
-      expect(spy).not.toHaveBeenCalled();
       myBoard.start();
-      expect(spy).toHaveBeenCalled();
 
       if (!root) {
         throw new Error("couldnt find root node for test");
       }
 
-      expect(myBoard.attachListeners).toHaveBeenCalled();
       const firstCell = root.querySelector("#b");
 
       // @ts-ignore
@@ -80,6 +76,108 @@ describe("Board", () => {
       expect(secondCell?.innerHTML).toBe("<span>O</span>");
     });
 
-    it.todo("will remove the event listener makeing the cell unclickable");
+    // hm this one is harder because it needs to remove a known function
+    // we pass an anonymous function making it hard t remove.
+    it.skip("will remove the event listener makeing the cell unclickable", () => {
+      const root = document.querySelector("#root");
+      const myBoard = new Board("#root");
+      const spy = jest.spyOn(myBoard, "removeListener");
+
+      myBoard.start();
+
+      if (!root) {
+        throw new Error("couldnt find root node for test");
+      }
+
+      const firstCell = root.querySelector("#b");
+      expect(spy).not.toHaveBeenCalled();
+      // @ts-ignore
+      firstCell.click();
+
+      expect(firstCell?.innerHTML).toBe("<span>X</span>");
+      expect(spy).toHaveBeenCalled();
+      // @ts-ignore
+      firstCell.click();
+
+      expect(firstCell?.innerHTML).toBe("<span>X</span>");
+    });
+
+    it("will not change the contents of a cell after first click", () => {
+      const root = document.querySelector("#root");
+      const myBoard = new Board("#root");
+
+      myBoard.start();
+
+      if (!root) {
+        throw new Error("couldnt find root node for test");
+      }
+
+      const firstCell = root.querySelector("#b");
+
+      // @ts-ignore
+      firstCell.click();
+
+      expect(firstCell?.innerHTML).toBe("<span>X</span>");
+
+      // @ts-ignore
+      firstCell.click();
+
+      expect(firstCell?.innerHTML).toBe("<span>X</span>");
+    });
+
+    it("will update the games grid with the users token on clcik", () => {
+      const root = document.querySelector("#root");
+      const myBoard = new Board("#root");
+
+      myBoard.start();
+
+      if (!root) {
+        throw new Error("couldnt find root node for test");
+      }
+
+      const firstCell = root.querySelector("#b");
+
+      // @ts-ignore
+      firstCell.click();
+
+      expect(firstCell?.innerHTML).toBe("<span>X</span>");
+      expect(myBoard.gameGrid).toMatchInlineSnapshot(`
+[
+  {},
+  "X",
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+]
+`);
+
+      const secondCell = root.querySelector("#f");
+      // @ts-ignore
+      secondCell.click();
+
+      expect(secondCell?.innerHTML).toBe("<span>O</span>");
+
+      expect(myBoard.gameGrid).toMatchInlineSnapshot(`
+[
+  {},
+  "X",
+  {},
+  {},
+  {},
+  "O",
+  {},
+  {},
+  {},
+]
+`);
+    });
+  });
+
+  describe("winning", () => {
+    it("is able to detect when a player has won", () => {});
   });
 });

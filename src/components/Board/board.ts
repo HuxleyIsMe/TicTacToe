@@ -1,9 +1,23 @@
 export class Board {
   root: string;
   turn: string;
+  isWinner: boolean;
   constructor(root: string) {
     this.root = root;
     this.turn = "X";
+    this.isWinner = false;
+    this.gameGrid = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
+    this.cellToGridMap = {
+      a: 0,
+      b: 1,
+      c: 2,
+      d: 3,
+      e: 4,
+      f: 5,
+      g: 6,
+      h: 7,
+      i: 8,
+    };
   }
 
   start() {
@@ -27,8 +41,17 @@ export class Board {
     this.attachListeners();
   }
 
-  handleClick(cell) {
-    document.querySelector(cell).innerHTML = `<span>${this.turn}</span>`;
+  checkForWinner() {}
+
+  handleClick(id) {
+    let cell = document.querySelector(id);
+    if (cell.innerHTML) {
+      // contents already
+      return;
+    }
+    cell.innerHTML = `<span>${this.turn}</span>`;
+
+    this.gameGrid[this.cellToGridMap[id.slice(1)]] = this.turn;
     this.turn = this.turn === "X" ? "O" : "X";
   }
 

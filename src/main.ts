@@ -1,6 +1,6 @@
 import "./style.css";
-import { generateBoardFromMatrix } from "./components/scratch-board";
-// crosses will start
-let isCrossesGo = true;
+import { Board } from "./components/Board/board.js";
 
-generateBoardFromMatrix("#app");
+const ticTacToe = new Board("#app");
+
+ticTacToe.start();
