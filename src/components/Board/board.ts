@@ -40,7 +40,6 @@ export class Board {
 
   renderBoard() {
     document.querySelector<HTMLDivElement>(this.root)!.innerHTML = `
-    <div id="commentator"></div>
     <div class="row border-bottom">
       <div
         id="a"
