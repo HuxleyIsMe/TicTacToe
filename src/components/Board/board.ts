@@ -3,14 +3,18 @@ type CELLS = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
 export class Board {
   root: string;
   turn: string;
-  isWinner: boolean;
+  hasWinner: boolean;
   gameGrid: string[];
   cells: CELLS[];
   cellToGridMap: Record<CELLS, number>;
+  gameOver: boolean;
+  turns: number;
   constructor(root: string) {
     this.root = root;
     this.turn = "X";
-    this.isWinner = false;
+    this.turns = 0;
+    this.hasWinner = false;
+    this.gameOver = false;
     this.gameGrid = new Array(9).fill("");
     this.cells = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
     this.cellToGridMap = {
@@ -47,7 +51,30 @@ export class Board {
     this.attachListeners();
   }
 
-  checkForWinner() {}
+  checkForWinner() {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    lines.some(([a, b, c]) => {
+      if (
+        this.gameGrid[a] === this.gameGrid[b] &&
+        this.gameGrid[b] === this.gameGrid[c] &&
+        this.gameGrid[a]
+      ) {
+        this.hasWinner = true;
+        this.gameOver = true;
+        return true;
+      }
+    });
+  }
 
   handleClick(element: HTMLElement): void {
     if (element.innerHTML) {
@@ -57,6 +84,11 @@ export class Board {
     element.innerHTML = `<span>${this.turn}</span>`;
 
     this.gameGrid[this.cellToGridMap[element.id as CELLS]] = this.turn;
+    this.checkForWinner();
+    this.turns++;
+    if (this.turns === 8) {
+      this.gameOver = true;
+    }
     this.turn = this.turn === "X" ? "O" : "X";
   }
 

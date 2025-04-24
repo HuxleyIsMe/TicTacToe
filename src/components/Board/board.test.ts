@@ -177,7 +177,64 @@ describe("Board", () => {
     });
   });
 
-  describe("winning", () => {
-    it("is able to detect when a player has won", () => {});
+  describe("checkForWinner", () => {
+    it("is able to detect when a player has won", () => {
+      const root = document.querySelector("#root");
+      const myBoard = new Board("#root");
+
+      myBoard.start();
+
+      if (!root) {
+        throw new Error("couldnt find root node for test");
+      }
+
+      //@ts-ignore
+      root.querySelector("#a").click();
+      //@ts-ignore
+      root.querySelector("#b").click();
+      //@ts-ignore
+      root.querySelector("#d").click();
+      //@ts-ignore
+      root.querySelector("#c").click();
+      //@ts-ignore
+      root.querySelector("#g").click();
+
+      expect(myBoard.hasWinner).toBe(true);
+      expect(myBoard.gameOver).toBe(true);
+    });
+
+    it("is able to detect when no player has won", () => {
+      const root = document.querySelector("#root");
+      const myBoard = new Board("#root");
+
+      myBoard.start();
+
+      if (!root) {
+        throw new Error("couldnt find root node for test");
+      }
+
+      //@ts-ignore
+      root.querySelector("#a").click();
+      //@ts-ignore
+      root.querySelector("#b").click();
+      //@ts-ignore
+      root.querySelector("#c").click();
+      //@ts-ignore
+      root.querySelector("#d").click();
+      //@ts-ignore
+      root.querySelector("#f").click();
+      //@ts-ignore
+      root.querySelector("#g").click();
+      //@ts-ignore
+      root.querySelector("#h").click();
+      //@ts-ignore
+      root.querySelector("#i").click();
+      //@ts-ignore
+      root.querySelector("#e").click();
+
+      console.log(myBoard.gameGrid);
+      expect(myBoard.hasWinner).toBe(false);
+      expect(myBoard.gameOver).toBe(true);
+    });
   });
 });
