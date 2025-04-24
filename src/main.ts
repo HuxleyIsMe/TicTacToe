@@ -1,5 +1,5 @@
 import "./style.css";
-import { generateBoardFromMatrix } from "./components/board";
+import { generateBoardFromMatrix } from "./components/scratch-board";
 // crosses will start
 let isCrossesGo = true;
 

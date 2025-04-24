@@ -26,19 +26,19 @@ export const generateBoardFromMatrix = (root: string) => {
 
   document.querySelector<HTMLDivElement>(root)!.innerHTML = `
         <div class='row border-bottom'>
-            <div id='a' class='col'></div>
-            <div id='b' class='col col-mid'></div>
-            <div id='c' class='col'></div>
+            <div id='a' class='col'  data-hover-text="pick me im number 1"></div>
+            <div id='b' class='col col-mid' data-hover-text="second the best"></div>
+            <div id='c' class='col' data-hover-text="your foe is quaking"></div>
         </div>
         <div class='row'>
-            <div  id='d' class='col '></div>
-            <div  id='e' class='col col-mid'></div>
-            <div  id='f' class='col '></div>
+            <div  id='d' class='col ' data-hover-text="such art this game"></div>
+            <div  id='e' class='col col-mid' data-hover-text="you will always win"></div>
+            <div  id='f' class='col ' data-hover-text="neutral good"></div>
         </div>
         <div class='row border-top'>
-            <div id='g' class='col'></div>
-            <div id='h'  class='col col-mid'></div>
-            <div id='i'  class='col'></div>
+            <div id='g' class='col' data-hover-text="pick me"></div>
+            <div id='h'  class='col col-mid' data-hover-text="no me"></div>
+            <div id='i'  class='col' data-hover-text="pick the other one"></div>
         </div>
     
     `;
@@ -55,13 +55,15 @@ export const generateBoardFromMatrix = (root: string) => {
     return isWinner;
   };
 
+  // nice to have a game over
+
   const handleClick = (element) => {
     if (document.querySelector(element).innerHTML) {
       // element already clciked do nothing
       console.log("element already clicked");
       return;
     }
-    document.querySelector(element)!.textContent = turn;
+    document.querySelector(element)!.innerHTML = `<span>${turn}</span>`;
 
     let selector = element.slice(1);
     console.log({ selector });

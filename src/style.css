@@ -109,10 +109,18 @@ button:focus-visible {
   width: 100px;
   height: 100px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.col:hover::after {
-  content: "pick me";
+.col > span {
+  font-size: 60px;
+  font-weight: 600em;
+}
+
+.col:empty:hover::after {
+  content: attr(data-hover-text);
 }
 
 .border-bottom {
