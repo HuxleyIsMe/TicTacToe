@@ -1,12 +1,18 @@
+type CELLS = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
+
 export class Board {
   root: string;
   turn: string;
   isWinner: boolean;
+  gameGrid: string[];
+  cells: CELLS[];
+  cellToGridMap: Record<CELLS, number>;
   constructor(root: string) {
     this.root = root;
     this.turn = "X";
     this.isWinner = false;
-    this.gameGrid = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
+    this.gameGrid = new Array(9).fill("");
+    this.cells = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
     this.cellToGridMap = {
       a: 0,
       b: 1,
@@ -20,7 +26,7 @@ export class Board {
     };
   }
 
-  start() {
+  start(): void {
     document.querySelector<HTMLDivElement>(this.root)!.innerHTML = `
     <div class='row border-bottom'>
         <div id='a' class='col'  data-hover-text="pick me im number 1"></div>
@@ -43,25 +49,24 @@ export class Board {
 
   checkForWinner() {}
 
-  handleClick(id) {
-    let cell = document.querySelector(id);
-    if (cell.innerHTML) {
+  handleClick(element: HTMLElement): void {
+    if (element.innerHTML) {
       // contents already
       return;
     }
-    cell.innerHTML = `<span>${this.turn}</span>`;
+    element.innerHTML = `<span>${this.turn}</span>`;
 
-    this.gameGrid[this.cellToGridMap[id.slice(1)]] = this.turn;
+    this.gameGrid[this.cellToGridMap[element.id as CELLS]] = this.turn;
     this.turn = this.turn === "X" ? "O" : "X";
   }
 
-  attachListeners() {
-    let cells = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
-
-    cells.forEach((cell) => {
+  attachListeners(): void {
+    this.cells.forEach((cell) => {
       document
         .querySelector(`#${cell}`)!
-        .addEventListener("click", () => this.handleClick(`#${cell}`));
+        .addEventListener("click", (e) =>
+          this.handleClick(e.currentTarget as HTMLElement)
+        );
     });
   }
 }

@@ -143,15 +143,15 @@ describe("Board", () => {
       expect(firstCell?.innerHTML).toBe("<span>X</span>");
       expect(myBoard.gameGrid).toMatchInlineSnapshot(`
 [
-  {},
+  "",
   "X",
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
 ]
 `);
 
@@ -163,15 +163,15 @@ describe("Board", () => {
 
       expect(myBoard.gameGrid).toMatchInlineSnapshot(`
 [
-  {},
+  "",
   "X",
-  {},
-  {},
-  {},
+  "",
+  "",
+  "",
   "O",
-  {},
-  {},
-  {},
+  "",
+  "",
+  "",
 ]
 `);
     });
