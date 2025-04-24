@@ -94,3 +94,31 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: fit-content;
+  height: fit-content;
+  background: green;
+}
+
+.col {
+  width: 100px;
+  height: 100px;
+}
+
+.border-bottom {
+  border-bottom: 2pt solid black;
+}
+
+.border-top {
+  border-top: 2pt solid black;
+}
+
+.col-mid {
+  border-left: 2pt solid black;
+  border-right: 2pt solid black;
+}
