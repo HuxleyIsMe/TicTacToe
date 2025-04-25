@@ -128,6 +128,10 @@ export class Board {
 `;
   }
 
+  teardown() {
+    Object.values(this.cellToListeners).forEach((c) => c.abort());
+  }
+
   start(): void {
     this.randomPlayerStart();
     this.renderBoard();
@@ -138,7 +142,7 @@ export class Board {
   }
 
   reset() {
-    Object.values(this.cellToListeners).forEach((c) => c.abort());
+    this.teardown();
     this.gameGrid = new Array(9).fill("");
     this.turns = 0;
     this.hasWinner = false;
@@ -175,24 +179,38 @@ export class Board {
       ) {
         this.markWinningTiles([a, b, c]);
         this.hasWinner = true;
-        this.gameOver = true;
-        Object.values(this.cellToListeners).forEach((c) => c.abort());
-        if (this.commentator) {
-          this.commentator.publish("ON_WIN", this.turn);
-        }
         return true;
       }
     });
   }
 
-  handleTurn(element: HTMLElement): void {
+  markTile(element) {
     element.style.background = this.turn === "X" ? "yellow" : "blue";
     element.style.color = this.turn === "X" ? "black" : "white";
     element.innerHTML = `<span>${this.turn}</span>`;
     this.gameGrid[this.cellToGridMap[element.id as CELLS]] = this.turn;
+  }
+
+  handleClick(element: HTMLElement): void {
+    if (element.innerHTML) {
+      // contents already
+      return;
+    }
     this.turns++;
-    console.log(this.turns);
-    if (this.turns === 9 || this.hasWinner) {
+    this.markTile(element);
+    this.checkForWinner();
+
+    // If there is a winner publish that an mark the game as over
+    if (this.hasWinner) {
+      this.gameOver = true;
+      if (this.commentator) {
+        this.commentator.publish("ON_WIN", this.turn);
+      }
+
+      return;
+    }
+
+    if (this.turns === 9) {
       this.gameOver = true;
 
       if (this.commentator) {
@@ -201,19 +219,11 @@ export class Board {
 
       return;
     }
+
     this.turn = this.turn === "X" ? "O" : "X";
     if (this.commentator) {
       this.commentator.publish("ON_NEXT_TURN", this.turn);
     }
-  }
-
-  handleClick(element: HTMLElement): void {
-    if (element.innerHTML) {
-      // contents already
-      return;
-    }
-    this.handleTurn(element);
-    this.checkForWinner();
     this.removeEventListener(element.id as CELLS);
   }
 

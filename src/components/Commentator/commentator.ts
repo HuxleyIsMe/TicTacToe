@@ -29,13 +29,12 @@ export class Commentator {
   }
 
   onStart(turn) {
-    console.log("hello");
     if (!document.getElementById(this.root)) {
       throw new Error("no root element for the commentator");
     }
     document.getElementById(
       this.root
-    )!.innerHTML = `<span>${turn} starts!</span>`;
+    )!.innerHTML = `<span aria-live="polite">${turn} starts!</span>`;
   }
 
   onWin(turn) {
@@ -44,7 +43,7 @@ export class Commentator {
     }
     document.getElementById(
       this.root
-    )!.innerHTML = `<span>${turn} Wins!</span>`;
+    )!.innerHTML = `<span aria-live="polite">${turn} Wins!</span>`;
   }
 
   onNextTurn(turn) {
@@ -53,15 +52,15 @@ export class Commentator {
     }
     document.getElementById(
       this.root
-    )!.innerHTML = `<span>${turn} turn!</span>`;
+    )!.innerHTML = `<span aria-live="polite">${turn} turn!</span>`;
   }
 
   onDraw() {
-    console.log("hello made it here");
     if (!document.getElementById(this.root)) {
       throw new Error("no root element for the commentator");
     }
-    document.getElementById(this.root)!.innerHTML = `<span>Its a draw!</span>`;
-    console.log("declared a draw");
+    document.getElementById(
+      this.root
+    )!.innerHTML = `<span aria-live="polite">Its a draw!</span>`;
   }
 }

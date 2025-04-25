@@ -57,28 +57,28 @@ describe("Commentator", () => {
     it("onStart displays the starting player", () => {
       commentator.onStart("X");
       expect(document.getElementById("commentary")!.innerHTML).toBe(
-        "<span>X starts!</span>"
+        '<span aria-live="polite">X starts!</span>'
       );
     });
 
     it("onWin displays the winning player", () => {
       commentator.onWin("O");
       expect(document.getElementById("commentary")!.innerHTML).toBe(
-        "<span>O Wins!</span>"
+        '<span aria-live="polite">O Wins!</span>'
       );
     });
 
     it("onNextTurn displays the player's turn", () => {
       commentator.onNextTurn("X");
       expect(document.getElementById("commentary")!.innerHTML).toBe(
-        "<span>X turn!</span>"
+        '<span aria-live="polite">X turn!</span>'
       );
     });
 
     it("onDraw displays the draw message", () => {
       commentator.onDraw();
       expect(document.getElementById("commentary")!.innerHTML).toBe(
-        "<span>Its a draw!</span>"
+        '<span aria-live="polite">Its a draw!</span>'
       );
     });
 
