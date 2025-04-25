@@ -1,0 +1,53 @@
+.winningTile {
+  background: red !important;
+  color: white !important;
+}
+
+.row {
+  transform: translateY(90px);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: fit-content;
+  height: fit-content;
+  background: green;
+}
+
+.col {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  font-size: 0.8em;
+  align-items: center;
+  justify-content: center;
+}
+
+.col > span {
+  font-size: 60px;
+  font-weight: 600em;
+}
+
+.col:empty:hover::after {
+  content: attr(data-hover-text);
+  cursor: pointer;
+}
+
+.border-bottom {
+  border-bottom: 2pt solid black;
+}
+
+.border-top {
+  border-top: 2pt solid black;
+}
+
+.col-mid {
+  border-left: 2pt solid black;
+  border-right: 2pt solid black;
+}
+
+#restartButton {
+  transform: translateY(120px);
+  color: black;
+  margin: 24px;
+}
