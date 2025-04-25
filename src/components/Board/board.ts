@@ -14,11 +14,13 @@ export class Board {
   cellToGridMap: Record<CELLS, number>;
   gameOver: boolean;
   turns: number;
+  commentator?: any;
   cellToListeners: Record<CELLS, AbortController>;
 
   constructor(root: string) {
     this.root = root;
     this.turn = "X";
+    this.commentator = undefined;
     this.turns = 0;
     this.hasWinner = false;
     this.gameOver = false;
@@ -36,6 +38,11 @@ export class Board {
       i: 8,
     };
     this.cellToListeners = {} as Record<CELLS, AbortController>;
+  }
+
+  withCommentator(commentator) {
+    this.commentator = commentator;
+    return this;
   }
 
   randomPlayerStart() {
@@ -125,6 +132,9 @@ export class Board {
     this.randomPlayerStart();
     this.renderBoard();
     this.attachListeners();
+    if (this.commentator) {
+      this.commentator.publish("ON_START", this.turn);
+    }
   }
 
   reset() {
@@ -137,11 +147,10 @@ export class Board {
   }
 
   markWinningTiles(winningTiles: number[]) {
-    console.log({ winningTiles });
     winningTiles.forEach((tile) => {
       let cellId = this.cells[tile];
       let element = document.getElementById(cellId);
-      console.log({ element, cellId });
+
       element?.classList.add("winningTile");
     });
   }
@@ -168,6 +177,9 @@ export class Board {
         this.hasWinner = true;
         this.gameOver = true;
         Object.values(this.cellToListeners).forEach((c) => c.abort());
+        if (this.commentator) {
+          this.commentator.publish("ON_WIN", this.turn);
+        }
         return true;
       }
     });
@@ -179,11 +191,20 @@ export class Board {
     element.innerHTML = `<span>${this.turn}</span>`;
     this.gameGrid[this.cellToGridMap[element.id as CELLS]] = this.turn;
     this.turns++;
+    console.log(this.turns);
     if (this.turns === 9 || this.hasWinner) {
       this.gameOver = true;
-      console.log("game over");
+
+      if (this.commentator) {
+        this.commentator.publish("ON_DRAW");
+      }
+
+      return;
     }
     this.turn = this.turn === "X" ? "O" : "X";
+    if (this.commentator) {
+      this.commentator.publish("ON_NEXT_TURN", this.turn);
+    }
   }
 
   handleClick(element: HTMLElement): void {
@@ -205,7 +226,7 @@ export class Board {
     document
       .querySelector(`#restartButton`)!
       .addEventListener("click", () => this.reset());
-    // Attaches event listner to make each div clickable
+    //  event listner to make each div clickable
     this.cells.forEach((cell) => {
       const controller = new AbortController();
       this.cellToListeners[cell] = controller;

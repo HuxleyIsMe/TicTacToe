@@ -1,9 +1,11 @@
-type COMMENTATOR_EVENTS = "ON_START" | "ON_WIN" | "ON_END_TURN" | "ON DRAW";
+type COMMENTATOR_EVENTS = "ON_START" | "ON_WIN" | "ON_NEXT_TURN" | "ON_DRAW";
 type CallbackType = (data?: any) => {};
 
 export class Commentator {
   events: Record<COMMENTATOR_EVENTS, CallbackType[]>;
-  constructor() {
+  root: string;
+  constructor(root: string) {
+    this.root = root;
     this.events = {} as Record<COMMENTATOR_EVENTS, CallbackType[]>;
   }
 
@@ -24,5 +26,42 @@ export class Commentator {
 
   clear() {
     this.events = {} as Record<COMMENTATOR_EVENTS, CallbackType[]>;
+  }
+
+  onStart(turn) {
+    console.log("hello");
+    if (!document.getElementById(this.root)) {
+      throw new Error("no root element for the commentator");
+    }
+    document.getElementById(
+      this.root
+    )!.innerHTML = `<span>${turn} starts!</span>`;
+  }
+
+  onWin(turn) {
+    if (!document.getElementById(this.root)) {
+      throw new Error("no root element for the commentator");
+    }
+    document.getElementById(
+      this.root
+    )!.innerHTML = `<span>${turn} Wins!</span>`;
+  }
+
+  onNextTurn(turn) {
+    if (!document.getElementById(this.root)) {
+      throw new Error("no root element for the commentator");
+    }
+    document.getElementById(
+      this.root
+    )!.innerHTML = `<span>${turn} turn!</span>`;
+  }
+
+  onDraw() {
+    console.log("hello made it here");
+    if (!document.getElementById(this.root)) {
+      throw new Error("no root element for the commentator");
+    }
+    document.getElementById(this.root)!.innerHTML = `<span>Its a draw!</span>`;
+    console.log("declared a draw");
   }
 }

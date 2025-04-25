@@ -2,67 +2,74 @@ import { Board } from "./board";
 
 describe("Board", () => {
   beforeEach(() => {
-    // Set up the DOM with a container element
     document.body.innerHTML = `<div id="root"></div>`;
     jest.spyOn(Math, "random").mockReturnValue(0.6); // stubbing math random so we start on X
     jest.clearAllMocks();
   });
 
-  it("will randomly select a player to start onstart", () => {
-    const myBoard = new Board("#root");
-    expect(myBoard.root).toBe("#root");
-
-    jest.spyOn(Math, "random").mockReturnValue(0.6); // stubbing math random so we start on X
-    myBoard.start();
-    expect(myBoard.turn).toBe("X");
-
-    jest.spyOn(Math, "random").mockReturnValue(0.3); // stubbing math random so we start on X
-    myBoard.start();
-    expect(myBoard.turn).toBe("O");
+  describe("working with commentator", () => {
+    it("can build with a commentator instance", () => {});
   });
 
-  it("takes a string of a root html element to attach the board to", () => {
-    const myBoard = new Board("#root");
-    expect(myBoard.root).toBe("#root");
-  });
+  describe("onStart", () => {
+    it("will randomly select a player to start onstart", () => {
+      const myBoard = new Board("#root");
+      expect(myBoard.root).toBe("#root");
 
-  it("can attach a board to the element", () => {
-    const myBoard = new Board("#root");
-    myBoard.start();
+      jest
+        .spyOn(Math, "random")
+        .mockReturnValueOnce(0.6)
+        .mockReturnValueOnce(0.3);
+      myBoard.start();
+      expect(myBoard.turn).toBe("X");
 
-    const root = document.querySelector("#root");
-    if (!root) {
-      throw new Error("couldnt find root node for test");
-    }
-    expect(root.querySelectorAll(".row").length).toBe(3); // 3 rows
-    expect(root.querySelectorAll(".col").length).toBe(9); // 3 cols per row * 3 rows
+      myBoard.start();
+      expect(myBoard.turn).toBe("O");
+    });
 
-    // You can check specific classes too
-    expect(root.querySelectorAll(".border-bottom").length).toBe(1);
-    expect(root.querySelectorAll(".border-top").length).toBe(1);
-    expect(root.querySelectorAll(".col-mid").length).toBe(3);
-  });
+    it("takes a string of a root html element to attach the board to", () => {
+      const myBoard = new Board("#root");
+      expect(myBoard.root).toBe("#root");
+    });
 
-  it("can attach event listners to each cell on the grid, on click they should render text", () => {
-    const root = document.querySelector("#root");
-    const myBoard = new Board("#root");
-    const spy = jest.spyOn(myBoard, "attachListeners");
+    it("can attach a board to the element", () => {
+      const myBoard = new Board("#root");
+      myBoard.start();
 
-    expect(spy).not.toHaveBeenCalled();
-    myBoard.start();
-    expect(spy).toHaveBeenCalled();
+      const root = document.querySelector("#root");
+      if (!root) {
+        throw new Error("couldnt find root node for test");
+      }
+      expect(root.querySelectorAll(".row").length).toBe(3); // 3 rows
+      expect(root.querySelectorAll(".col").length).toBe(9); // 3 cols per row * 3 rows
 
-    if (!root) {
-      throw new Error("couldnt find root node for test");
-    }
+      // You can check specific classes too
+      expect(root.querySelectorAll(".border-bottom").length).toBe(1);
+      expect(root.querySelectorAll(".border-top").length).toBe(1);
+      expect(root.querySelectorAll(".col-mid").length).toBe(3);
+    });
 
-    expect(myBoard.attachListeners).toHaveBeenCalled();
-    const secondCell = root.querySelector("#b");
+    it("can attach event listners to each cell on the grid, on click they should render text", () => {
+      const root = document.querySelector("#root");
+      const myBoard = new Board("#root");
+      const spy = jest.spyOn(myBoard, "attachListeners");
 
-    // @ts-ignore
-    secondCell.click();
+      expect(spy).not.toHaveBeenCalled();
+      myBoard.start();
+      expect(spy).toHaveBeenCalled();
 
-    expect(secondCell?.innerHTML).toBe("<span>X</span>");
+      if (!root) {
+        throw new Error("couldnt find root node for test");
+      }
+
+      expect(myBoard.attachListeners).toHaveBeenCalled();
+      const secondCell = root.querySelector("#b");
+
+      // @ts-ignore
+      secondCell.click();
+
+      expect(secondCell?.innerHTML).toBe("<span>X</span>");
+    });
   });
 
   describe("handleClick", () => {
@@ -224,7 +231,6 @@ describe("Board", () => {
       //@ts-ignore
       root.querySelector("#e").click();
 
-      console.log(myBoard.gameGrid);
       expect(myBoard.hasWinner).toBe(false);
       expect(myBoard.gameOver).toBe(true);
     });

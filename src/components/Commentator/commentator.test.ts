@@ -1,54 +1,96 @@
-import { Commentator } from "./commentator.ts";
+import { Commentator } from "./commentator";
 
-describe("Commentator Pub/Sub", () => {
-  let c;
+describe("Commentator", () => {
+  let commentator: Commentator;
 
   beforeEach(() => {
-    c = new Commentator();
+    document.body.innerHTML = `<div id="commentary"></div>`;
+    commentator = new Commentator("commentary");
   });
 
-  test("calls subscriber when event is published", () => {
-    const callback = jest.fn();
-    c.subscribe("test", callback);
-    c.publish("test", "hello");
-    expect(callback).toHaveBeenCalledWith("hello");
+  describe("subscribe/publish", () => {
+    it("calls subscribed callbacks on publish", () => {
+      const mockFn = jest.fn();
+      commentator.subscribe("ON_WIN", mockFn);
+      commentator.publish("ON_WIN", "X");
+
+      expect(mockFn).toHaveBeenCalledWith("X");
+    });
+
+    it("does not call unsubscribed callbacks", () => {
+      const mockFn = jest.fn();
+      const unsubscribe = commentator.subscribe("ON_WIN", mockFn);
+      unsubscribe(); // remove it
+      commentator.publish("ON_WIN", "X");
+
+      expect(mockFn).not.toHaveBeenCalled();
+    });
+
+    it("handles multiple callbacks for same event", () => {
+      const mock1 = jest.fn();
+      const mock2 = jest.fn();
+      commentator.subscribe("ON_START", mock1);
+      commentator.subscribe("ON_START", mock2);
+      commentator.publish("ON_START", "X");
+
+      expect(mock1).toHaveBeenCalledWith("X");
+      expect(mock2).toHaveBeenCalledWith("X");
+    });
+
+    it("does nothing if event has no subscribers", () => {
+      expect(() => {
+        commentator.publish("ON_NEXT_TURN", "O");
+      }).not.toThrow();
+    });
+
+    it("clears all subscriptions with clear", () => {
+      const mock = jest.fn();
+      commentator.subscribe("ON_WIN", mock);
+      commentator.clear();
+      commentator.publish("ON_WIN", "X");
+
+      expect(mock).not.toHaveBeenCalled();
+    });
   });
 
-  test("unsubscribe removes the callback", () => {
-    const callback = jest.fn();
-    const unsub = c.subscribe("event", callback);
-    c.publish("event", "first");
-    unsub();
-    c.publish("event", "second");
-    expect(callback).toHaveBeenCalledTimes(1);
-  });
+  describe("DOM-based event methods", () => {
+    it("onStart displays the starting player", () => {
+      commentator.onStart("X");
+      expect(document.getElementById("commentary")!.innerHTML).toBe(
+        "<span>X starts!</span>"
+      );
+    });
 
-  test("does nothing when publishing to an event with no subscribers", () => {
-    expect(() => c.publish("ghost", "boo")).not.toThrow();
-  });
+    it("onWin displays the winning player", () => {
+      commentator.onWin("O");
+      expect(document.getElementById("commentary")!.innerHTML).toBe(
+        "<span>O Wins!</span>"
+      );
+    });
 
-  test("calls all subscribers for the same event", () => {
-    const a = jest.fn();
-    const b = jest.fn();
-    c.subscribe("multi", a);
-    c.subscribe("multi", b);
-    c.publish("multi", "data");
-    expect(a).toHaveBeenCalledWith("data");
-    expect(b).toHaveBeenCalledWith("data");
-  });
+    it("onNextTurn displays the player's turn", () => {
+      commentator.onNextTurn("X");
+      expect(document.getElementById("commentary")!.innerHTML).toBe(
+        "<span>X turn!</span>"
+      );
+    });
 
-  test("does not call listeners for other events", () => {
-    const ping = jest.fn();
-    c.subscribe("ping", ping);
-    c.publish("pong", "irrelevant");
-    expect(ping).not.toHaveBeenCalled();
-  });
+    it("onDraw displays the draw message", () => {
+      commentator.onDraw();
+      expect(document.getElementById("commentary")!.innerHTML).toBe(
+        "<span>Its a draw!</span>"
+      );
+    });
 
-  test("clears all events", () => {
-    const cb = jest.fn();
-    c.subscribe("a", cb);
-    c.clear();
-    c.publish("a", "after clear");
-    expect(cb).not.toHaveBeenCalled();
+    it("throws error if root element not found", () => {
+      const badCommentator = new Commentator("missing-root");
+
+      expect(() => badCommentator.onStart("X")).toThrow(
+        "no root element for the commentator"
+      );
+      expect(() => badCommentator.onWin("O")).toThrow();
+      expect(() => badCommentator.onNextTurn("X")).toThrow();
+      expect(() => badCommentator.onDraw()).toThrow();
+    });
   });
 });
