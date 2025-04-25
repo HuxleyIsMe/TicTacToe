@@ -127,6 +127,16 @@ export class Board {
     this.start();
   }
 
+  markWinningTiles(winningTiles: number[]) {
+    console.log({ winningTiles });
+    winningTiles.forEach((tile) => {
+      let cellId = this.cells[tile];
+      let element = document.getElementById(cellId);
+      console.log({ element, cellId });
+      element?.classList.add("winningTile");
+    });
+  }
+
   checkForWinner() {
     const lines = [
       [0, 1, 2],
@@ -145,8 +155,10 @@ export class Board {
         this.gameGrid[b] === this.gameGrid[c] &&
         this.gameGrid[a]
       ) {
+        this.markWinningTiles([a, b, c]);
         this.hasWinner = true;
         this.gameOver = true;
+        Object.values(this.cellToListeners).forEach((c) => c.abort());
         return true;
       }
     });
@@ -180,9 +192,11 @@ export class Board {
   }
 
   attachListeners(): void {
+    // Attaches event listner to reset the board
     document
       .querySelector(`#restartButton`)!
       .addEventListener("click", () => this.reset());
+    // Attaches event listner to make each div clickable
     this.cells.forEach((cell) => {
       const controller = new AbortController();
       this.cellToListeners[cell] = controller;
@@ -193,7 +207,7 @@ export class Board {
           (e) => this.handleClick(e.currentTarget as HTMLElement),
           { signal: controller.signal }
         );
-
+      // Attaches event listner to make each div clickable through accessible tabs
       document.querySelector(`#${cell}`)!.addEventListener(
         "keydown",
         (e) => {

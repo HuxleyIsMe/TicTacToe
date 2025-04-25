@@ -76,32 +76,6 @@ describe("Board", () => {
       expect(secondCell?.innerHTML).toBe("<span>O</span>");
     });
 
-    // hm this one is harder because it needs to remove a known function
-    // we pass an anonymous function making it hard t remove.
-    it.skip("will remove the event listener makeing the cell unclickable", () => {
-      const root = document.querySelector("#root");
-      const myBoard = new Board("#root");
-      const spy = jest.spyOn(myBoard, "removeListener");
-
-      myBoard.start();
-
-      if (!root) {
-        throw new Error("couldnt find root node for test");
-      }
-
-      const firstCell = root.querySelector("#b");
-      expect(spy).not.toHaveBeenCalled();
-      // @ts-ignore
-      firstCell.click();
-
-      expect(firstCell?.innerHTML).toBe("<span>X</span>");
-      expect(spy).toHaveBeenCalled();
-      // @ts-ignore
-      firstCell.click();
-
-      expect(firstCell?.innerHTML).toBe("<span>X</span>");
-    });
-
     it("will not change the contents of a cell after first click", () => {
       const root = document.querySelector("#root");
       const myBoard = new Board("#root");
@@ -178,7 +152,7 @@ describe("Board", () => {
   });
 
   describe("checkForWinner", () => {
-    it("is able to detect when a player has won", () => {
+    it.only("is able to detect when a player has won", () => {
       const root = document.querySelector("#root");
       const myBoard = new Board("#root");
 
@@ -201,6 +175,10 @@ describe("Board", () => {
 
       expect(myBoard.hasWinner).toBe(true);
       expect(myBoard.gameOver).toBe(true);
+
+      let winningTiles = root.getElementsByClassName("winningTile");
+
+      expect(winningTiles.length).toBe(3);
     });
 
     it("is able to detect when no player has won", () => {

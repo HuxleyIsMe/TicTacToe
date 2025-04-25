@@ -144,6 +144,7 @@ body {
 }
 
 #container {
+  position: relative;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -152,9 +153,8 @@ body {
 }
 
 .title {
-  position: absolute;
-  top: 20px;
-  left: calc(50% - 50px);
+  width: fit-content;
+  margin: 0 auto;
   height: 150px;
 }
 
@@ -190,6 +190,11 @@ body {
   color: white;
 }
 
+.winningTile {
+  background: red !important;
+  color: white !important;
+}
+
 .row {
   transform: translateY(90px);
   display: flex;
@@ -204,8 +209,8 @@ body {
 .col {
   width: 110px;
   height: 110px;
-  cursor: pointer;
   display: flex;
+  font-size: 0.8em;
   align-items: center;
   justify-content: center;
 }
@@ -217,6 +222,7 @@ body {
 
 .col:empty:hover::after {
   content: attr(data-hover-text);
+  cursor: pointer;
 }
 
 .border-bottom {
