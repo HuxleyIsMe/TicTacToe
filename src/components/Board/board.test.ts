@@ -4,7 +4,21 @@ describe("Board", () => {
   beforeEach(() => {
     // Set up the DOM with a container element
     document.body.innerHTML = `<div id="root"></div>`;
+    jest.spyOn(Math, "random").mockReturnValue(0.6); // stubbing math random so we start on X
     jest.clearAllMocks();
+  });
+
+  it("will randomly select a player to start onstart", () => {
+    const myBoard = new Board("#root");
+    expect(myBoard.root).toBe("#root");
+
+    jest.spyOn(Math, "random").mockReturnValue(0.6); // stubbing math random so we start on X
+    myBoard.start();
+    expect(myBoard.turn).toBe("X");
+
+    jest.spyOn(Math, "random").mockReturnValue(0.3); // stubbing math random so we start on X
+    myBoard.start();
+    expect(myBoard.turn).toBe("O");
   });
 
   it("takes a string of a root html element to attach the board to", () => {
@@ -152,7 +166,7 @@ describe("Board", () => {
   });
 
   describe("checkForWinner", () => {
-    it.only("is able to detect when a player has won", () => {
+    it("is able to detect when a player has won", () => {
       const root = document.querySelector("#root");
       const myBoard = new Board("#root");
 

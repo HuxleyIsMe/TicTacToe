@@ -6,15 +6,15 @@ type Player = "X" | "O";
  * playable for the whole family
  */
 export class Board {
-  private root: string;
-  private turn: Player;
-  private hasWinner: boolean;
-  private gameGrid: string[];
-  private cells: CELLS[];
-  private cellToGridMap: Record<CELLS, number>;
-  private gameOver: boolean;
-  private turns: number;
-  private cellToListeners: Record<CELLS, AbortController>;
+  root: string;
+  turn: Player;
+  hasWinner: boolean;
+  gameGrid: string[];
+  cells: CELLS[];
+  cellToGridMap: Record<CELLS, number>;
+  gameOver: boolean;
+  turns: number;
+  cellToListeners: Record<CELLS, AbortController>;
 
   constructor(root: string) {
     this.root = root;
@@ -36,6 +36,14 @@ export class Board {
       i: 8,
     };
     this.cellToListeners = {} as Record<CELLS, AbortController>;
+  }
+
+  randomPlayerStart() {
+    if (Math.random() > 0.5) {
+      this.turn = "X";
+    } else {
+      this.turn = "O";
+    }
   }
 
   renderBoard() {
@@ -114,6 +122,7 @@ export class Board {
   }
 
   start(): void {
+    this.randomPlayerStart();
     this.renderBoard();
     this.attachListeners();
   }
