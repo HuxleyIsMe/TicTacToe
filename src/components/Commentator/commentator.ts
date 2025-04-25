@@ -1,18 +1,21 @@
+type COMMENTATOR_EVENTS = "ON_START" | "ON_WIN" | "ON_END_TURN" | "ON DRAW";
+type CallbackType = (data?: any) => {};
+
 export class Commentator {
+  events: Record<COMMENTATOR_EVENTS, CallbackType[]>;
   constructor() {
-    this.events = {};
+    this.events = {} as Record<COMMENTATOR_EVENTS, CallbackType[]>;
   }
 
-  subscribe(event, callback) {
+  subscribe(event: COMMENTATOR_EVENTS, callback: CallbackType) {
     if (!this.events[event]) this.events[event] = [];
     this.events[event].push(callback);
-    // Return an unsubscribe function
     return () => {
       this.events[event] = this.events[event].filter((cb) => cb !== callback);
     };
   }
 
-  publish(event, data) {
+  publish(event: COMMENTATOR_EVENTS, data: any) {
     if (!this.events[event]) return;
     for (const callback of this.events[event]) {
       callback(data);
@@ -20,6 +23,6 @@ export class Commentator {
   }
 
   clear() {
-    this.events = {};
+    this.events = {} as Record<COMMENTATOR_EVENTS, CallbackType[]>;
   }
 }
