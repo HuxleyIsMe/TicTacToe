@@ -192,10 +192,6 @@ export class Board {
   }
 
   handleClick(element: HTMLElement): void {
-    if (element.innerHTML) {
-      // contents already
-      return;
-    }
     this.turns++;
     this.markTile(element);
     this.checkForWinner();
@@ -206,6 +202,7 @@ export class Board {
       if (this.commentator) {
         this.commentator.publish("ON_WIN", this.turn);
       }
+      this.teardown();
 
       return;
     }
@@ -216,6 +213,7 @@ export class Board {
       if (this.commentator) {
         this.commentator.publish("ON_DRAW");
       }
+      this.teardown();
 
       return;
     }
