@@ -29,13 +29,13 @@ The Game is composed of four classes:
 
 - Easy to extend: designed with future modularity in mind
 
+![image](./ticTacToe.png)
+
 ## Future steps
 
 ### logic
 
-I plan to eventually split out the Board and Game logic. I haven't done this yet because they are currently tightly coupled: the Board exists to serve the Game, and separating them would mainly amount to moving code around without improving flexibility. We can't easily swap in a different Board without changing the Game logic, so for now they are treated as a single unit. If we later introduce different types of games or boards, splitting them would make more sense — at that point, the separation would provide real value rather than being just syntactic sugar.
-
-Lastly, it's worth noting that this is a solo project. Since I'm highly familiar with the problem space, optimizing for maintainability right now would be premature. However, if others were to join the project, paying the cost of separation earlier could make maintenance easier and more worthwhile.
+I have begun isolating the Board UI logic into its own module, but the Board and Game remain tightly coupled by design. Full separation would mostly involve reorganizing code without meaningfully increasing flexibility, as the Board is still tailored to serve the Game's specific needs. Right now, the cost of decoupling would outweigh the benefits. However, if we introduce different types of games or boards in the future, a clearer boundary between them will provide real value beyond syntactic sugar.
 
 ### style
 
