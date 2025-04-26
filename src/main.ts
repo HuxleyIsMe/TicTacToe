@@ -2,10 +2,7 @@ import "./style.css";
 import "./components/Board/board.css";
 import "./components/Commentator/commentator.css";
 import "./components/ScoreBoard/scoreboard.css";
-import { PubSub } from "./components/PubSub/PubSub";
-import { Board } from "./components/Board/board.js";
-import { Commentator } from "./components/Commentator/commentator";
-import { Scoreboard } from "./components/ScoreBoard/scoreboard";
+import { PubSub, Board, Commentator, Scoreboard } from "./components/index";
 
 const pubSub = new PubSub();
 const regularCommentator = new Commentator("commentator");
