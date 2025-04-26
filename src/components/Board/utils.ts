@@ -51,12 +51,14 @@ export const BoardUIHandler = () => {
           <div class="${styles.row} ${styles["border-bottom"]}" data-name="row" >
             <button
               data-name="col"
+              role="button"
               id="a"
               class="${styles.col}"
               aria-label="top left square empty"
               data-hover-text="pick me im number 1"
             ></button>
             <button
+              role="button"
               data-name="col"
               id="b"
               class="${styles.col} ${styles["col-mid"]}"
@@ -64,6 +66,7 @@ export const BoardUIHandler = () => {
               data-hover-text="second the best"
             ></button>
             <button
+              role="button"
               data-name="col"
               id="c"
               class="${styles.col}"
@@ -73,6 +76,7 @@ export const BoardUIHandler = () => {
           </div>
           <div class="${styles.row}" data-name="row">
             <button
+              role="button"
               data-name="col"
               id="d"
               class="${styles.col}"
@@ -80,6 +84,7 @@ export const BoardUIHandler = () => {
               data-hover-text="such art this game"
             ></button>
             <button
+              role="button"
               data-name="col"
               id="e"
               class="${styles.col} ${styles["col-mid"]}"
@@ -87,6 +92,7 @@ export const BoardUIHandler = () => {
               data-hover-text="you will always win"
             ></button>
             <button
+              role="button"
               data-name="col"
               id="f"
               class="${styles.col}"
@@ -96,6 +102,7 @@ export const BoardUIHandler = () => {
           </div>
           <div class="${styles.row} ${styles["border-top"]}" data-name="row">
             <button
+              role="button"
               data-name="col"
               id="g"
               class="${styles.col}"
@@ -103,6 +110,7 @@ export const BoardUIHandler = () => {
               data-hover-text="pick me"
             ></button>
             <button
+              role="button"
               data-name="col"
               id="h"
               class="${styles.col} ${styles["col-mid"]}"
@@ -110,6 +118,7 @@ export const BoardUIHandler = () => {
               data-hover-text="no me"
             ></button>
             <button
+              role="button"
               data-name="col"
               id="i"
               class="${styles.col}"

@@ -29,8 +29,6 @@ The Game is composed of four classes:
 
 - Easy to extend: designed with future modularity in mind
 
-![image](./ticTacToe.png)
-
 ## Future steps
 
 ### logic
