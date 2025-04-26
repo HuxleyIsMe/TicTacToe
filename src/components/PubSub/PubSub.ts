@@ -1,0 +1,29 @@
+type GAME_EVENTS = "ON_START" | "ON_WIN" | "ON_NEXT_TURN" | "ON_DRAW";
+type CallbackType = (data?: any) => {};
+
+export class PubSub {
+  events: Record<GAME_EVENTS, CallbackType[]>;
+
+  constructor() {
+    this.events = {} as Record<GAME_EVENTS, CallbackType[]>;
+  }
+
+  subscribe(event: GAME_EVENTS, callback: CallbackType) {
+    if (!this.events[event]) this.events[event] = [];
+    this.events[event].push(callback);
+    return () => {
+      this.events[event] = this.events[event].filter((cb) => cb !== callback);
+    };
+  }
+
+  publish(event: GAME_EVENTS, data: any) {
+    if (!this.events[event]) return;
+    for (const callback of this.events[event]) {
+      callback(data);
+    }
+  }
+
+  clear() {
+    this.events = {} as Record<GAME_EVENTS, CallbackType[]>;
+  }
+}

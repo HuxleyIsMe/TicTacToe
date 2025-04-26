@@ -14,13 +14,12 @@ export class Board {
   cellToGridMap: Record<CELLS, number>;
   gameOver: boolean;
   turns: number;
-  commentator?: any;
   cellToListeners: Record<CELLS, AbortController>;
+  pubsub?: any;
 
   constructor(root: string) {
     this.root = root;
     this.turn = "X";
-    this.commentator = undefined;
     this.turns = 0;
     this.hasWinner = false;
     this.gameOver = false;
@@ -38,10 +37,11 @@ export class Board {
       i: 8,
     };
     this.cellToListeners = {} as Record<CELLS, AbortController>;
+    this.pubsub = undefined;
   }
 
-  withCommentator(commentator) {
-    this.commentator = commentator;
+  withPubSub(pubsub) {
+    this.pubsub = pubsub;
     return this;
   }
 
@@ -136,8 +136,8 @@ export class Board {
     this.randomPlayerStart();
     this.renderBoard();
     this.attachListeners();
-    if (this.commentator) {
-      this.commentator.publish("ON_START", this.turn);
+    if (this.pubsub) {
+      this.pubsub.publish("ON_START", this.turn);
     }
   }
 
@@ -199,8 +199,8 @@ export class Board {
     // If there is a winner publish that an mark the game as over
     if (this.hasWinner) {
       this.gameOver = true;
-      if (this.commentator) {
-        this.commentator.publish("ON_WIN", this.turn);
+      if (this.pubsub) {
+        this.pubsub.publish("ON_WIN", this.turn);
       }
       this.teardown();
 
@@ -210,8 +210,8 @@ export class Board {
     if (this.turns === 9) {
       this.gameOver = true;
 
-      if (this.commentator) {
-        this.commentator.publish("ON_DRAW");
+      if (this.pubsub) {
+        this.pubsub.publish("ON_DRAW");
       }
       this.teardown();
 
@@ -219,8 +219,8 @@ export class Board {
     }
 
     this.turn = this.turn === "X" ? "O" : "X";
-    if (this.commentator) {
-      this.commentator.publish("ON_NEXT_TURN", this.turn);
+    if (this.pubsub) {
+      this.pubsub.publish("ON_NEXT_TURN", this.turn);
     }
     this.removeEventListener(element.id as CELLS);
   }

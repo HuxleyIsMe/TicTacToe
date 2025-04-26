@@ -8,51 +8,6 @@ describe("Commentator", () => {
     commentator = new Commentator("commentary");
   });
 
-  describe("subscribe/publish", () => {
-    it("calls subscribed callbacks on publish", () => {
-      const mockFn = jest.fn();
-      commentator.subscribe("ON_WIN", mockFn);
-      commentator.publish("ON_WIN", "X");
-
-      expect(mockFn).toHaveBeenCalledWith("X");
-    });
-
-    it("does not call unsubscribed callbacks", () => {
-      const mockFn = jest.fn();
-      const unsubscribe = commentator.subscribe("ON_WIN", mockFn);
-      unsubscribe(); // remove it
-      commentator.publish("ON_WIN", "X");
-
-      expect(mockFn).not.toHaveBeenCalled();
-    });
-
-    it("handles multiple callbacks for same event", () => {
-      const mock1 = jest.fn();
-      const mock2 = jest.fn();
-      commentator.subscribe("ON_START", mock1);
-      commentator.subscribe("ON_START", mock2);
-      commentator.publish("ON_START", "X");
-
-      expect(mock1).toHaveBeenCalledWith("X");
-      expect(mock2).toHaveBeenCalledWith("X");
-    });
-
-    it("does nothing if event has no subscribers", () => {
-      expect(() => {
-        commentator.publish("ON_NEXT_TURN", "O");
-      }).not.toThrow();
-    });
-
-    it("clears all subscriptions with clear", () => {
-      const mock = jest.fn();
-      commentator.subscribe("ON_WIN", mock);
-      commentator.clear();
-      commentator.publish("ON_WIN", "X");
-
-      expect(mock).not.toHaveBeenCalled();
-    });
-  });
-
   describe("DOM-based event methods", () => {
     it("onStart displays the starting player", () => {
       commentator.onStart("X");
