@@ -165,8 +165,8 @@ export class Board {
     winningTiles.forEach((tile) => {
       let cellId = this.cells[tile];
       let element = document.getElementById(cellId);
-
-      element?.classList.add("winningTile");
+      element?.setAttribute("data-status", "winning");
+      element?.classList.add(styles.winningTile);
     });
   }
 
@@ -195,7 +195,7 @@ export class Board {
     });
   }
 
-  markTile(element) {
+  markTile(element: HTMLElement) {
     element.style.background = this.turn === "X" ? "yellow" : "blue";
     element.style.color = this.turn === "X" ? "black" : "white";
     element.innerHTML = `<span>${this.turn}</span>`;

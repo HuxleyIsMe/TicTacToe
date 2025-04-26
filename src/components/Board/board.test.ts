@@ -192,7 +192,7 @@ describe("Board", () => {
       expect(myBoard.hasWinner).toBe(true);
       expect(myBoard.gameOver).toBe(true);
 
-      let winningTiles = root.getElementsByClassName("winningTile");
+      let winningTiles = root.querySelectorAll('[data-status="winning"]');
 
       expect(winningTiles.length).toBe(3);
     });
