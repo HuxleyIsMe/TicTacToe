@@ -1,17 +1,3 @@
-/***
- *
- *
- * Take in a number of players
- *
- *
- * how do you want the interaction to look ?
- *
- * Player 1: x
- * Player 2: O
- *
- * on Wine
- */
-
 type Player = "X" | "O";
 type COMMENTATOR_EVENTS = "ON_WIN" | "ON_START";
 type CallbackType = (data?: any) => {};
@@ -21,25 +7,6 @@ export class Scoreboard {
   root: string;
   constructor(root: string) {
     this.root = root;
-    this.events = {} as Record<COMMENTATOR_EVENTS, CallbackType[]>;
-  }
-
-  subscribe(event: COMMENTATOR_EVENTS, callback: CallbackType) {
-    if (!this.events[event]) this.events[event] = [];
-    this.events[event].push(callback);
-    return () => {
-      this.events[event] = this.events[event].filter((cb) => cb !== callback);
-    };
-  }
-
-  publish(event: COMMENTATOR_EVENTS, data: any) {
-    if (!this.events[event]) return;
-    for (const callback of this.events[event]) {
-      callback(data);
-    }
-  }
-
-  clear() {
     this.events = {} as Record<COMMENTATOR_EVENTS, CallbackType[]>;
   }
 
@@ -70,10 +37,8 @@ export class Scoreboard {
       <button id='resetScores'>Reset scores</button>`;
   }
 
-  onStart(turn: Player) {
+  onStart() {
     const scores = this.getScoresFromCookie();
-
-    console.log(this.root);
 
     document.getElementById(this.root)!.innerHTML = `
     <span aria-live="polite">Player X:  ${scores.X}</span>
@@ -93,6 +58,6 @@ export class Scoreboard {
     const scores = this.getScoresFromCookie();
     scores[turn]++;
     setScoresToCookie(scores);
-    this.onStart(turn); // update display
+    this.onStart();
   }
 }
