@@ -49,82 +49,73 @@ export const BoardUIHandler = () => {
   const renderBoard = (root: string) => {
     document.querySelector<HTMLDivElement>(root)!.innerHTML = `
           <div class="${styles.row} ${styles["border-bottom"]}" data-name="row" >
-            <div
+            <button
               data-name="col"
               id="a"
               class="${styles.col}"
-              tabindex="1"
               aria-label="top left square empty"
               data-hover-text="pick me im number 1"
-            ></div>
-            <div
+            ></button>
+            <button
               data-name="col"
               id="b"
               class="${styles.col} ${styles["col-mid"]}"
-              tabindex="2"
               aria-label="top middle square empty"
               data-hover-text="second the best"
-            ></div>
-            <div
+            ></button>
+            <button
               data-name="col"
               id="c"
               class="${styles.col}"
-              tabindex="3"
               aria-label="top right square empty"
               data-hover-text="your foe is quaking"
-            ></div>
+            ></button>
           </div>
           <div class="${styles.row}" data-name="row">
-            <div
+            <button
               data-name="col"
               id="d"
               class="${styles.col}"
-              tabindex="4"
               aria-label="middle left square empty"
               data-hover-text="such art this game"
-            ></div>
-            <div
+            ></button>
+            <button
               data-name="col"
               id="e"
               class="${styles.col} ${styles["col-mid"]}"
-              tabindex="5"
               aria-label="middle middle square empty"
               data-hover-text="you will always win"
-            ></div>
-            <div
+            ></button>
+            <button
               data-name="col"
               id="f"
               class="${styles.col}"
-              tabindex="6"
               aria-label="middle right square empty"
               data-hover-text="neutral good"
-            ></div>
+            ></button>
           </div>
           <div class="${styles.row} ${styles["border-top"]}" data-name="row">
-            <div
+            <button
               data-name="col"
               id="g"
               class="${styles.col}"
-              tabindex="7"
               aria-label="bottom left square empty"
               data-hover-text="pick me"
-            ></div>
-            <div
+            ></button>
+            <button
               data-name="col"
               id="h"
               class="${styles.col} ${styles["col-mid"]}"
-              tabindex="8"
               aria-label="bottom middle square empty"
               data-hover-text="no me"
-            ></div>
-            <div
+            ></button>
+            <button
               data-name="col"
               id="i"
               class="${styles.col}"
-              tabindex="9"
               aria-label="bottom right square empty"
               data-hover-text="pick the other one"
-            ></div>
+            ></button>
           </div>
           <button class="${styles.restartButton}" id="restartButton">Restart</button>
       `;
