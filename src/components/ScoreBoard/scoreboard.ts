@@ -30,9 +30,12 @@ export class Scoreboard {
       "ticTacToe=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.getElementById(this.root)!.innerHTML = `
       <div class="${style.scoreboard}">
-        <span aria-live="polite">Player X:  0</span>
-        <span aria-live="polite">Player O: 0</span>
+        <div>
+          <span aria-live="polite">Player X:  0</span>
+          <span aria-live="polite">Player O: 0</span>
+        </div>
         <button id='resetScores'>Reset scores</button>
+      </div>
      `;
   }
 
@@ -41,8 +44,10 @@ export class Scoreboard {
 
     document.getElementById(this.root)!.innerHTML = `
     <div class="${style.scoreboard}">
-      <span aria-live="polite">Player X:  ${scores.X}</span>
-      <span aria-live="polite">Player O: ${scores.O}</span>
+      <div>
+        <span aria-live="polite">Player X:  ${scores.X}</span>
+        <span aria-live="polite">Player O: ${scores.O}</span>
+      </div>
       <button id='resetScores'>Reset scores</button>
     </div>`;
 

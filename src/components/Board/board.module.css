@@ -9,7 +9,7 @@
   flex-direction: row;
   justify-content: center;
   flex-wrap: nowrap;
-  width: 100%;
+  width: fit-content;
   height: fit-content;
   background: green;
 }
@@ -49,5 +49,5 @@
 .restartButton {
   transform: translateY(120px);
   color: black;
-  margin: 24px;
+  margin: 4px;
 }
