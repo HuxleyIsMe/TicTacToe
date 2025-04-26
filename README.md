@@ -17,7 +17,7 @@ The Game is composed of four classes:
 
 - TypeScript typed for safety and clarity
 
-- Accessible via keyboard navigation (tabindex, aria-labels, Enter support)
+- Accessible via keyboard navigation (semantic html, aria-labels, Enter support)
 
 - Event-driven architecture using a lightweight PubSub system
 
