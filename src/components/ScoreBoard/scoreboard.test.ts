@@ -29,12 +29,10 @@ describe("Scoreboard", () => {
   });
 
   describe("resetScores", () => {
-    it("resets the cookie and update the DOM", () => {
-      // Set a cookie first
+    it("resets the cookie and updates the DOM", () => {
       document.cookie = "ticTacToe=p105p207";
       scoreboard.resetScores();
 
-      // Check if cookie is cleared (note: testing cookies is tricky; this just ensures DOM is updated)
       expect(rootElement.innerHTML).toContain("Player X:  0");
       expect(rootElement.innerHTML).toContain("Player O: 0");
       expect(rootElement.querySelector("#resetScores")).not.toBeNull();
@@ -51,7 +49,7 @@ describe("Scoreboard", () => {
       expect(rootElement.querySelector("#resetScores")).not.toBeNull();
     });
 
-    it("attachs click event to resetScores button", () => {
+    it("attaches click event to resetScores button", () => {
       document.cookie = "ticTacToe=p1p2";
       scoreboard.onStart();
 
@@ -69,7 +67,7 @@ describe("Scoreboard", () => {
       document.cookie = "ticTacToe=p13p24";
       scoreboard.onWin("X");
 
-      expect(document.cookie).toMatch(/p14p24/); // X score incremented to 4, O stays 4
+      expect(document.cookie).toMatch(/p14p24/);
       expect(rootElement.innerHTML).toContain("Player X:  4");
       expect(rootElement.innerHTML).toContain("Player O: 4");
     });
@@ -77,7 +75,7 @@ describe("Scoreboard", () => {
     it("increments the correct player's score even if no cookie is present", () => {
       scoreboard.onWin("O");
 
-      expect(document.cookie).toMatch(/p10p21/); // O starts from 0 → 1
+      expect(document.cookie).toMatch(/p10p21/);
       expect(rootElement.innerHTML).toContain("Player X:  0");
       expect(rootElement.innerHTML).toContain("Player O: 1");
     });

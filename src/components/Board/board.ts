@@ -9,6 +9,10 @@ const MAX_GAME_TURNS = 9;
  * playable for the whole family
  */
 export class Board {
+  /**
+   * For now we pass the UI method to a handler, in furture we can decouple these further
+   * however rightnow the Board is tightly coupled to the Game due to the nature of Tic Tac Toe
+   */
   BoardUIHandler: any;
   cells: CELLS[];
   cellToGridMap: Record<CELLS, number>;

@@ -9,7 +9,7 @@ describe("Commentator", () => {
   });
 
   describe("DOM-based event methods", () => {
-    it.only("onStart displays the starting player", () => {
+    it("onStart displays the starting player", () => {
       commentator.onStart("X");
       expect(document.getElementById("commentary")!.innerHTML).toBe(
         '<span aria-live="polite">X starts!</span>'
