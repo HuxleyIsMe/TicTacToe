@@ -1,4 +1,4 @@
-type GAME_EVENTS = "ON_START" | "ON_WIN" | "ON_NEXT_TURN" | "ON_DRAW";
+import type { GAME_EVENTS } from "../shared.types";
 type CallbackType = (data?: any) => void;
 
 export class PubSub {
@@ -16,7 +16,7 @@ export class PubSub {
     };
   }
 
-  publish(event: GAME_EVENTS, data: any) {
+  publish(event: GAME_EVENTS, data?: any) {
     if (!this.events[event]) return;
     for (const callback of this.events[event]) {
       callback(data);
