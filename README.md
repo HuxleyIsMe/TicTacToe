@@ -25,7 +25,7 @@ The Game is composed of four classes:
 
 - Responsive: playable across devices
 
-- Testable: architecture structured for easy Jest testing
+- Tested
 
 - Easy to extend: designed with future modularity in mind
 
