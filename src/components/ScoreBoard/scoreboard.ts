@@ -1,4 +1,5 @@
 import type { Player } from "../shared.types";
+import style from "./scoreboard.module.css";
 
 export class Scoreboard {
   root: string;
@@ -28,18 +29,22 @@ export class Scoreboard {
     document.cookie =
       "ticTacToe=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.getElementById(this.root)!.innerHTML = `
-      <span aria-live="polite">Player X:  0</span>
-      <span aria-live="polite">Player O: 0</span>
-      <button id='resetScores'>Reset scores</button>`;
+      <div class="${style.scoreboard}">
+        <span aria-live="polite">Player X:  0</span>
+        <span aria-live="polite">Player O: 0</span>
+        <button id='resetScores'>Reset scores</button>
+     `;
   }
 
   onStart() {
     const scores = this.getScoresFromCookie();
 
     document.getElementById(this.root)!.innerHTML = `
-    <span aria-live="polite">Player X:  ${scores.X}</span>
-    <span aria-live="polite">Player O: ${scores.O}</span>
-    <button id='resetScores'>Reset scores</button>`;
+    <div class="${style.scoreboard}">
+      <span aria-live="polite">Player X:  ${scores.X}</span>
+      <span aria-live="polite">Player O: ${scores.O}</span>
+      <button id='resetScores'>Reset scores</button>
+    </div>`;
 
     document.getElementById("resetScores")?.addEventListener("click", () => {
       this.resetScores();

@@ -1,1 +1,1 @@
-export { PubSub } from "./PubSub.js";
+export { PubSub } from "./PubSub";

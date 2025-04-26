@@ -1,4 +1,4 @@
-import { Scoreboard } from "./Scoreboard"; // adjust path as needed
+import { Scoreboard } from "./Scoreboard";
 
 describe("Scoreboard", () => {
   let scoreboard: Scoreboard;

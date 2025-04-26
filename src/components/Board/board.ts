@@ -1,5 +1,7 @@
+import type { Player } from "../shared.types";
+import styles from "./board.module.css";
+
 type CELLS = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
-type Player = "X" | "O";
 
 /**
  * This is our Tic Tac Toe Board class it will generate us a game of tic tac toe thats
@@ -55,76 +57,85 @@ export class Board {
 
   renderBoard() {
     document.querySelector<HTMLDivElement>(this.root)!.innerHTML = `
-    <div class="row border-bottom">
+    <div class="${styles.row} ${styles["border-bottom"]}" data-name="row" >
       <div
+        data-name="col"
         id="a"
-        class="col"
+        class="${styles.col}"
         tabindex="1"
         aria-label="top left square empty"
         data-hover-text="pick me im number 1"
       ></div>
       <div
+        data-name="col"
         id="b"
-        class="col col-mid"
+        class="${styles.col} ${styles["col-mid"]}"
         tabindex="2"
         aria-label="top middle square empty"
         data-hover-text="second the best"
       ></div>
       <div
+        data-name="col"
         id="c"
-        class="col"
+        class="${styles.col}"
         tabindex="3"
         aria-label="top right square empty"
         data-hover-text="your foe is quaking"
       ></div>
     </div>
-    <div class="row">
+    <div class="${styles.row}" data-name="row">
       <div
+        data-name="col"
         id="d"
-        class="col"
+        class="${styles.col}"
         tabindex="4"
         aria-label="middle left square empty"
         data-hover-text="such art this game"
       ></div>
       <div
+        data-name="col"
         id="e"
-        class="col col-mid"
+        class="${styles.col} ${styles["col-mid"]}"
         tabindex="5"
         aria-label="middle middle square empty"
         data-hover-text="you will always win"
       ></div>
       <div
+        data-name="col"
         id="f"
-        class="col"
+        class="${styles.col}"
         tabindex="6"
         aria-label="middle right square empty"
         data-hover-text="neutral good"
       ></div>
     </div>
-    <div class="row border-top">
+    <div class="${styles.row} ${styles["border-top"]}" data-name="row">
       <div
+        data-name="col"
         id="g"
-        class="col"
+        class="${styles.col}"
         tabindex="7"
         aria-label="bottom left square empty"
         data-hover-text="pick me"
       ></div>
       <div
+        data-name="col"
         id="h"
-        class="col col-mid"
+        class="${styles.col} ${styles["col-mid"]}"
         tabindex="8"
         aria-label="bottom middle square empty"
         data-hover-text="no me"
       ></div>
       <div
+        data-name="col"
         id="i"
-        class="col"
+        class="${styles.col}"
         tabindex="9"
         aria-label="bottom right square empty"
         data-hover-text="pick the other one"
       ></div>
     </div>
-    <button id="restartButton">Restart</button>
+    <button class="${styles.restartButton}" id="restartButton">Restart</button>
 `;
   }
 

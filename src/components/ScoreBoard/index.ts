@@ -1,1 +1,1 @@
-export { Scoreboard } from "./scoreboard.js";
+export { Scoreboard } from "./scoreboard";

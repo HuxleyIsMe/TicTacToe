@@ -182,3 +182,12 @@ body {
   width: 118px;
   font-size: 4em;
 }
+
+#commentator {
+  text-align: center;
+  transform: translateY(50px);
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+}

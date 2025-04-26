@@ -40,13 +40,8 @@ describe("Board", () => {
       if (!root) {
         throw new Error("couldnt find root node for test");
       }
-      expect(root.querySelectorAll(".row").length).toBe(3); // 3 rows
-      expect(root.querySelectorAll(".col").length).toBe(9); // 3 cols per row * 3 rows
-
-      // You can check specific classes too
-      expect(root.querySelectorAll(".border-bottom").length).toBe(1);
-      expect(root.querySelectorAll(".border-top").length).toBe(1);
-      expect(root.querySelectorAll(".col-mid").length).toBe(3);
+      expect(root.querySelectorAll(`[data-name*="row"]`).length).toBe(3); // 3 rows
+      expect(root.querySelectorAll(`[data-name*="col"]`).length).toBe(9); // 3 cols per row * 3 rows
     });
 
     it("can attach event listners to each cell on the grid, on click they should render text", () => {

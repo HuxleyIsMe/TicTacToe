@@ -1,5 +1,5 @@
 type GAME_EVENTS = "ON_START" | "ON_WIN" | "ON_NEXT_TURN" | "ON_DRAW";
-type CallbackType = (data?: any) => {};
+type CallbackType = (data?: any) => void;
 
 export class PubSub {
   events: Record<GAME_EVENTS, CallbackType[]>;
