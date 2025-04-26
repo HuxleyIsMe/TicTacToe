@@ -1,13 +1,9 @@
-type Player = "X" | "O";
-type COMMENTATOR_EVENTS = "ON_WIN" | "ON_START";
-type CallbackType = (data?: any) => {};
+import type { Player } from "../shared.types";
 
 export class Scoreboard {
-  events: Record<COMMENTATOR_EVENTS, CallbackType[]>;
   root: string;
   constructor(root: string) {
     this.root = root;
-    this.events = {} as Record<COMMENTATOR_EVENTS, CallbackType[]>;
   }
 
   getScoresFromCookie(): Record<Player, number> {

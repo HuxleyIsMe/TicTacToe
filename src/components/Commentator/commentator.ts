@@ -1,15 +1,12 @@
-type COMMENTATOR_EVENTS = "ON_START" | "ON_WIN" | "ON_NEXT_TURN" | "ON_DRAW";
-type CallbackType = (data?: any) => {};
+import type { Player } from "../shared.types";
 
 export class Commentator {
-  events: Record<COMMENTATOR_EVENTS, CallbackType[]>;
   root: string;
   constructor(root: string) {
     this.root = root;
-    this.events = {} as Record<COMMENTATOR_EVENTS, CallbackType[]>;
   }
 
-  onStart(turn) {
+  onStart(turn: Player) {
     if (!document.getElementById(this.root)) {
       throw new Error("no root element for the commentator");
     }
@@ -18,7 +15,7 @@ export class Commentator {
     )!.innerHTML = `<span aria-live="polite">${turn} starts!</span>`;
   }
 
-  onWin(turn) {
+  onWin(turn: Player) {
     if (!document.getElementById(this.root)) {
       throw new Error("no root element for the commentator");
     }
@@ -27,7 +24,7 @@ export class Commentator {
     )!.innerHTML = `<span aria-live="polite">${turn} Wins!</span>`;
   }
 
-  onNextTurn(turn) {
+  onNextTurn(turn: Player) {
     if (!document.getElementById(this.root)) {
       throw new Error("no root element for the commentator");
     }
