@@ -43,9 +43,9 @@ I will continue working on styling and adding fun celebration animations!
 
 - Split Board and Game logic for greater flexibility (currently tightly coupled by design)
 
-- Add AI opponent (Minimax algorithm)
+- Add AI opponent
 
-- Multiplayer support (local and/or online)
+- Maybe add more game types
 
 - Improved animations and transitions
 
