@@ -15,10 +15,8 @@ export class Board {
    */
   BoardUIHandler: any;
   cells: CELLS[];
-  cellToGridMap: Record<CELLS, number>;
   hasWinner: boolean;
   gameGrid: string[];
-  gameOver: boolean;
   root: string;
   turn: Player;
   turns: number;
@@ -28,21 +26,8 @@ export class Board {
   constructor(root: string) {
     this.BoardUIHandler = BoardUIHandler();
     this.hasWinner = false;
-    this.gameOver = false;
     this.gameGrid = new Array(9).fill("");
     this.cells = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
-    this.cellToGridMap = {
-      a: 0,
-      b: 1,
-      c: 2,
-      d: 3,
-      e: 4,
-      f: 5,
-      g: 6,
-      h: 7,
-      i: 8,
-    };
-
     this.root = root;
     this.turn = "X";
     this.turns = 0;
@@ -73,12 +58,12 @@ export class Board {
     this.gameGrid = new Array(9).fill("");
     this.turns = 0;
     this.hasWinner = false;
-    this.gameOver = false;
     this.start();
   }
 
   checkForWinner() {
-    const lines = [
+    /** These are the winning combinations for a game of tic tac toe */
+    const winningCobinations = [
       [0, 1, 2],
       [3, 4, 5],
       [6, 7, 8],
@@ -89,7 +74,7 @@ export class Board {
       [2, 4, 6],
     ];
 
-    lines.some(([a, b, c]) => {
+    winningCobinations.some(([a, b, c]) => {
       if (
         this.gameGrid[a] === this.gameGrid[b] &&
         this.gameGrid[b] === this.gameGrid[c] &&
@@ -106,12 +91,10 @@ export class Board {
   handleClick(element: HTMLElement): void {
     this.turns++;
     this.BoardUIHandler.markTile(element, this.turn);
-    this.gameGrid[this.cellToGridMap[element.id as CELLS]] = this.turn;
+    this.gameGrid[this.cells.indexOf(element.id as CELLS)] = this.turn;
     this.checkForWinner();
 
-    // If there is a winner publish that an mark the game as over
     if (this.hasWinner) {
-      this.gameOver = true;
       if (this.pubsub) {
         this.pubsub.publish(GAME_EVENTS.ON_WIN, this.turn);
       }
@@ -120,13 +103,10 @@ export class Board {
     }
 
     if (this.turns === MAX_GAME_TURNS) {
-      this.gameOver = true;
-
       if (this.pubsub) {
         this.pubsub.publish(GAME_EVENTS.ON_DRAW);
       }
       this.BoardUIHandler.removeAllEventListeners(element);
-
       return;
     }
 

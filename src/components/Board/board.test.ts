@@ -190,7 +190,6 @@ describe("Board", () => {
       root.querySelector("#g").click();
 
       expect(myBoard.hasWinner).toBe(true);
-      expect(myBoard.gameOver).toBe(true);
 
       let winningTiles = root.querySelectorAll('[data-status="winning"]');
 
@@ -227,7 +226,6 @@ describe("Board", () => {
       root.querySelector("#e").click();
 
       expect(myBoard.hasWinner).toBe(false);
-      expect(myBoard.gameOver).toBe(true);
     });
   });
 });
