@@ -25,7 +25,7 @@ The Game is composed of four classes:
 
 - Responsive: playable across devices
 
-- Testable: architecture structured for easy Jest testing
+- Tested
 
 - Easy to extend: designed with future modularity in mind
 
@@ -43,9 +43,9 @@ I will continue working on styling and adding fun celebration animations!
 
 - Split Board and Game logic for greater flexibility (currently tightly coupled by design)
 
-- Add AI opponent (Minimax algorithm)
+- Add AI opponent
 
-- Multiplayer support (local and/or online)
+- Maybe add more game types
 
 - Improved animations and transitions
 
