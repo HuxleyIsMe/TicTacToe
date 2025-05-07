@@ -1,4 +1,4 @@
-import type { Player } from "../shared.types";
+import type { Player } from "../../types"
 
 export class Commentator {
   root: string;

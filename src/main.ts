@@ -18,12 +18,12 @@ pubSub.subscribe(GAME_EVENTS.ON_WIN, (winner) =>
   regularCommentator.onWin(winner)
 );
 
-pubSub.subscribe(GAME_EVENTS.ON_WIN, (data) => scoreboard.onWin(data));
+pubSub.subscribe(GAME_EVENTS.ON_WIN, ({turn}) => scoreboard.onWin(turn));
 
 /** On starting a game of tic tac toe----------------------------------------------------------------------------    on start    */
 
-pubSub.subscribe(GAME_EVENTS.ON_START, (data) =>
-  regularCommentator.onStart(data)
+pubSub.subscribe(GAME_EVENTS.ON_START, ({turn}) =>
+  regularCommentator.onStart(turn)
 );
 
 pubSub.subscribe(GAME_EVENTS.ON_START, () => scoreboard.onStart());
@@ -36,7 +36,7 @@ pubSub.subscribe(GAME_EVENTS.ON_NEXT_TURN, (data) =>
   regularCommentator.onNextTurn(data)
 );
 
-pubSub.subscribe(GAME_EVENTS.ON_NEXT_TURN, (data) => deepBlue.onStart());
+pubSub.subscribe(GAME_EVENTS.ON_NEXT_TURN, () => deepBlue.onStart());
 
 
 /** On drawing a game of tic tac toe----------------------------------------------------------------------------    on draw        */

@@ -1,13 +1,16 @@
 import { UIHandler } from "../../sharedUtils/UIHelper";
 import type { UIHandlerReturnType } from "../../sharedUtils/UIHelper";
+import type {Player} from "../../types"
 
 export class Opponent {
     isPlaying: boolean;
+    playsAs: Player;
     root: string;
     UIHandler: UIHandlerReturnType;
 
     constructor(root: string) {
         this.isPlaying = false;
+        this.playsAs = 'O';
         this.root = root;
         this.UIHandler = UIHandler();
         
@@ -27,7 +30,14 @@ export class Opponent {
         .querySelector(`#flexSwitchCheckDefault`)!
         .addEventListener(
           "change",
-          (e) => this.isPlaying = !this.isPlaying,
+          () => this.isPlaying = !this.isPlaying,
         );
     }
+
+    onNextTurn() {
+
+
+
+    }
+    
 }

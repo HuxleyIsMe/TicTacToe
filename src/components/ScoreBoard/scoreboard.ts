@@ -1,4 +1,4 @@
-import type { Player } from "../shared.types";
+import type { Player } from "../../types";
 import style from "./scoreboard.module.css";
 
 export class Scoreboard {

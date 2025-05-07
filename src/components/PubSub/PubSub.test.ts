@@ -1,6 +1,6 @@
 import { PubSub } from "./PubSub";
 import type { PubSubType } from "./types";
-import { GAME_EVENTS } from "../shared.types";
+import { GAME_EVENTS } from "../../types";
 
 describe("subscribe/publish", () => {
   let pubsub = undefined as unknown as PubSubType;

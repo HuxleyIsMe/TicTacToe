@@ -1,9 +1,4 @@
 import styles from "./board.module.css";
-import type { CELLS } from "../shared.types";
-
-
-
-
 
 
 export interface TicTacToeBoardHandlerReturnType {

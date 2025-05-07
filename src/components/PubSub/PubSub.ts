@@ -1,4 +1,5 @@
-import type { GAME_EVENTS } from "../shared.types";
+import type { GAME_EVENTS } from "../../types";
+
 type CallbackType = (data?: any) => void;
 
 export class PubSub {

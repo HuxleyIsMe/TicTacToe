@@ -49,7 +49,7 @@ export class Board {
     this.Board.renderBoard(this.root);
     this.attachListeners();
     if (this.pubsub) {
-      this.pubsub.publish(GAME_EVENTS.ON_START, this.turn);
+      this.pubsub.publish(GAME_EVENTS.ON_START, { turn: this.turn });
     }
   }
 
@@ -94,7 +94,7 @@ export class Board {
     this.checkForWinner();
 
     if (this.hasWinner) {
-      this.pubsub?.publish(GAME_EVENTS.ON_WIN, this.turn);
+      this.pubsub?.publish(GAME_EVENTS.ON_WIN, {turn: this.turn});
       this.BoardUI.removeAllEventListeners();
       return;
     }
@@ -106,7 +106,7 @@ export class Board {
     }
 
     this.turn = this.turn === "X" ? "O" : "X";
-    this.pubsub?.publish(GAME_EVENTS.ON_NEXT_TURN, this.turn);
+    this.pubsub?.publish(GAME_EVENTS.ON_NEXT_TURN, {turn: this.turn});
     this.BoardUI.removeEventListener(element.id as CELLS);
   }
 

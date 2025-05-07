@@ -1,5 +1,7 @@
 import {Opponent} from "./opponent";
 
+// const CELL_IDS = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
+
 describe('Opponent', () => {
     let GeffTheOpponent: Opponent;
 
@@ -9,13 +11,21 @@ describe('Opponent', () => {
 
     });
     
-    it.only('toggling the control set the opponent to be on', () => {
-        const root = document.querySelector("#opponent");
+    it('toggling the control set the opponent to be on and play as "O"', () => {
         GeffTheOpponent.onStart();
-        root?.querySelector("#flexSwitchCheckDefault").click();
+        document.getElementById("flexSwitchCheckDefault")!.click();
         expect(GeffTheOpponent.isPlaying).toBe(true);
-
+        expect(GeffTheOpponent.playsAs).toBe('O');
     });
 
-    it.todo('toggling the control set the opponent to be on');
+
+
+    it('onNextTurn it will select an empty available square', () => {
+        // const mockGameState = ["", "", "", "X", "", "X", "", "", "O"];
+        GeffTheOpponent.onStart();
+        document.getElementById("flexSwitchCheckDefault")!.click();
+        expect(GeffTheOpponent.isPlaying).toBe(true);
+        GeffTheOpponent.onNextTurn();
+
+    })
 })
