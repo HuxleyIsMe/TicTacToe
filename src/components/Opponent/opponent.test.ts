@@ -39,4 +39,19 @@ describe('Opponent', () => {
         let res2 = GeffTheOpponent.onNextTurn({gameState: [...mockGameState, "X", ""], cellIDs: CELL_IDS, turn: 'O'});
         expect(res2).toBe('i')
     })
+
+    it.todo('Allow Geff to play on start!')
+
+    describe('selecting tiles', () => {
+
+        it('attempts to choose winning patterns', () => {
+            // make the winning tiles a const and share
+            // filter out possibilities that are not possible due to an X
+            // from the remaining filter out for ones that contain an O
+            // at this point if we are starting we should still have all options
+            // however if we have been playing it should try and select only the potential ones
+            expect(2).toBe(2)
+
+        })
+    })
 })
