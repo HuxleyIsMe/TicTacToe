@@ -14,8 +14,8 @@ const deepBlue = new Opponent("aiPlayer");
 
 /** On winning a game of tic tac toe----------------------------------------------------------------------------    on win    */
 
-pubSub.subscribe(GAME_EVENTS.ON_WIN, (winner) =>
-  regularCommentator.onWin(winner)
+pubSub.subscribe(GAME_EVENTS.ON_WIN, ({turn}) =>
+  regularCommentator.onWin(turn)
 );
 
 pubSub.subscribe(GAME_EVENTS.ON_WIN, ({turn}) => scoreboard.onWin(turn));
