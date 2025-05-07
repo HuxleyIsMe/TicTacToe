@@ -1,6 +1,7 @@
-import { Player, CELLS, GAME_EVENTS } from "../shared.types";
+import { Player, CELLS, GAME_EVENTS } from "../../types";
 import type { PubSubType } from "../index";
-import { UIHandler, UIHandlerReturnType,TicTacToeBoardHandler, TicTacToeBoardHandlerReturnType } from "./utils";
+import {TicTacToeBoardHandler, TicTacToeBoardHandlerReturnType } from "./utils";
+import {UIHandler, UIHandlerReturnType} from "../../sharedUtils/UIHelper"
 
 const MAX_GAME_TURNS = 9;
 
