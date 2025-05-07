@@ -36,7 +36,7 @@ pubSub.subscribe(GAME_EVENTS.ON_NEXT_TURN, ({turn}) =>
   regularCommentator.onNextTurn(turn)
 );
 
-pubSub.subscribe(GAME_EVENTS.ON_NEXT_TURN, () => deepBlue.onStart());
+pubSub.subscribe(GAME_EVENTS.ON_NEXT_TURN, ({turn, gameState, cellIDs}) => deepBlue.onNextTurn({turn, gameState, cellIDs}));
 
 
 /** On drawing a game of tic tac toe----------------------------------------------------------------------------    on draw        */

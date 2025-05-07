@@ -106,7 +106,7 @@ export class Board {
     }
 
     this.turn = this.turn === "X" ? "O" : "X";
-    this.pubsub?.publish(GAME_EVENTS.ON_NEXT_TURN, {turn: this.turn});
+    this.pubsub?.publish(GAME_EVENTS.ON_NEXT_TURN, {turn: this.turn, gameState: this.gameGrid, cellIDs: this.cells});
     this.BoardUI.removeEventListener(element.id as CELLS);
   }
 

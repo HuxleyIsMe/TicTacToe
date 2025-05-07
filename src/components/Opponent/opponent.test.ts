@@ -25,8 +25,18 @@ describe('Opponent', () => {
         GeffTheOpponent.onStart();
         document.getElementById("flexSwitchCheckDefault")!.click();
         expect(GeffTheOpponent.isPlaying).toBe(true);
-        let res = GeffTheOpponent.onNextTurn({gameState: [...mockGameState, ""], cellIDs: CELL_IDS});
+        let res = GeffTheOpponent.onNextTurn({gameState: [...mockGameState, ""], cellIDs: CELL_IDS, turn: 'O'});
         expect(res).toBe('i')
+    })
 
+    it('Only plays on its turn', () => {
+        const mockGameState = new Array(7).fill("X");
+        GeffTheOpponent.onStart();
+        document.getElementById("flexSwitchCheckDefault")!.click();
+        expect(GeffTheOpponent.isPlaying).toBe(true);
+        let res = GeffTheOpponent.onNextTurn({gameState: [...mockGameState, "", ""], cellIDs: CELL_IDS, turn: 'X'});
+        expect(res).toBe(undefined)
+        let res2 = GeffTheOpponent.onNextTurn({gameState: [...mockGameState, "X", ""], cellIDs: CELL_IDS, turn: 'O'});
+        expect(res2).toBe('i')
     })
 })

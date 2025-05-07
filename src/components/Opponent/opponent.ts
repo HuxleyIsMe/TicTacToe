@@ -34,10 +34,13 @@ export class Opponent {
         );
     }
 
-    onNextTurn({gameState, cellIDs}) {
-
-
-
+    onNextTurn({gameState, cellIDs, turn}) {
+        if(turn === this.playsAs) {
+            let nextAvailableCells = gameState.indexOf("")
+            let buttonToClick = cellIDs[nextAvailableCells];
+            setTimeout(()=>document.getElementById(buttonToClick)?.click(), 1000); // wrap in timeout to make it a lil more human
+            return buttonToClick
+        }
     }
     
 }
