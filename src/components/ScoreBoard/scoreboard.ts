@@ -34,7 +34,7 @@ export class Scoreboard {
           <span aria-live="polite">Player X:  0</span>
           <span aria-live="polite">Player O: 0</span>
         </div>
-        <button id='resetScores'>Reset scores</button>
+        <button id='resetScores' type="button" class="btn btn-outline-light btn-sm">Reset scores</button>
       </div>
      `;
   }
@@ -48,7 +48,7 @@ export class Scoreboard {
         <span aria-live="polite">Player X:  ${scores.X}</span>
         <span aria-live="polite">Player O: ${scores.O}</span>
       </div>
-      <button id='resetScores'>Reset scores</button>
+        <button id='resetScores' type="button" class="btn btn-outline-light btn-sm">Reset scores</button>
     </div>`;
 
     document.getElementById("resetScores")?.addEventListener("click", () => {

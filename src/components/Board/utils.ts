@@ -82,7 +82,7 @@ export const TicTacToeBoardHandler = () : TicTacToeBoardHandlerReturnType  => {
     tile.style.color = turn === "X" ? "black" : "white";
     tile.innerHTML = `<span>${turn}</span>`;
   };
-  
+
   const renderBoard = (root: string) => {
     document.querySelector<HTMLDivElement>(root)!.innerHTML = `
           <div class="${styles.row} ${styles["border-bottom"]}" data-name="row" >
@@ -163,7 +163,7 @@ export const TicTacToeBoardHandler = () : TicTacToeBoardHandlerReturnType  => {
               data-hover-text="pick the other one"
             ></button>
           </div>
-          <button class="${styles.restartButton}" id="restartButton">Restart</button>
+          <button class="btn btn-outline-light btn-sm mt-3" type="button" id="restartButton">Restart</button>
       `;
   };
 

@@ -129,65 +129,49 @@ table {
 }
 body {
   background: #120321;
-  margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
-  width: 100vw;
   min-height: 100vh;
+  color: white;
 }
 
 /*---------------------------------------------------------- main layout display --*/
 
 #app {
-  margin: 0 auto;
   text-align: center;
+  height: fit-content;
   font-family: "Press Start 2P", system-ui;
+}
+
+#scoreboard {
+  width: 100%;
+  min-height: 110px;
+}
+
+#wrapper {
+  width: 100vw;
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
 }
 
 #container {
-  position: relative;
-  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: flex-start;
   flex-direction: column;
   width: fit-content;
-}
-
-.title {
-  width: fit-content;
-  margin: 0 auto;
-  height: 150px;
-}
-
-.header-top {
-  transform: skew(-10deg) rotate(-10deg) translateY(0px);
-}
-
-.header-mid {
-  transform: skew(-10deg) rotate(-10deg) translateY(-60px);
-}
-
-.header-bottom {
-  transform: skew(-10deg) rotate(-10deg) translateY(-120px);
-}
-.header {
-  margin-bottom: 40px;
-  background: -webkit-linear-gradient(rgb(255, 18, 18) 30%, rgb(255, 215, 38));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: "Permanent Marker", cursive;
-  font-weight: 400;
-  font-style: normal;
-  width: 118px;
-  font-size: 4em;
+  /* background: pink; */
+  height: 90vh;
+  
 }
 
 #commentator {
+  width: 100%;
   text-align: center;
-  transform: translateY(50px);
   font-family: "Press Start 2P", system-ui;
   font-weight: 400;
   font-style: normal;
-  color: white;
+
 }

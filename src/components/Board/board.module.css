@@ -4,7 +4,6 @@
 }
 
 .row {
-  transform: translateY(90px);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -49,7 +48,6 @@
 }
 
 .restartButton {
-  transform: translateY(120px);
   color: black;
   margin: 4px;
 }
