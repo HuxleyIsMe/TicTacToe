@@ -7,10 +7,6 @@ describe("Board", () => {
     jest.clearAllMocks();
   });
 
-  describe("working with commentator", () => {
-    it("can build with a commentator instance", () => {});
-  });
-
   describe("onStart", () => {
     it("will randomly select a player to start onstart", () => {
       const myBoard = new Board("#root");
@@ -38,13 +34,13 @@ describe("Board", () => {
 
       const root = document.querySelector("#root");
       if (!root) {
-        throw new Error("couldnt find root node for test");
+        throw new Error("couldn't find root node for test");
       }
       expect(root.querySelectorAll(`[data-name*="row"]`).length).toBe(3); // 3 rows
       expect(root.querySelectorAll(`[data-name*="col"]`).length).toBe(9); // 3 cols per row * 3 rows
     });
 
-    it("can attach event listners to each cell on the grid, on click they should render text", () => {
+    it("can attach event listeners to each cell on the grid, on click they should render text", () => {
       const root = document.querySelector("#root");
       const myBoard = new Board("#root");
       const spy = jest.spyOn(myBoard, "attachListeners");
@@ -54,7 +50,7 @@ describe("Board", () => {
       expect(spy).toHaveBeenCalled();
 
       if (!root) {
-        throw new Error("couldnt find root node for test");
+        throw new Error("couldn't find root node for test");
       }
 
       expect(myBoard.attachListeners).toHaveBeenCalled();
@@ -75,7 +71,7 @@ describe("Board", () => {
       myBoard.start();
 
       if (!root) {
-        throw new Error("couldnt find root node for test");
+        throw new Error("couldn't find root node for test");
       }
 
       const firstCell = root.querySelector("#b");
@@ -99,7 +95,7 @@ describe("Board", () => {
       myBoard.start();
 
       if (!root) {
-        throw new Error("couldnt find root node for test");
+        throw new Error("couldn't find root node for test");
       }
 
       const firstCell = root.querySelector("#b");
@@ -122,7 +118,7 @@ describe("Board", () => {
       myBoard.start();
 
       if (!root) {
-        throw new Error("couldnt find root node for test");
+        throw new Error("couldn't find root node for test");
       }
 
       const firstCell = root.querySelector("#b");
