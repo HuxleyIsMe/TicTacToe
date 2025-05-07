@@ -13,6 +13,8 @@ The Game is composed of four classes:
 - ScoreBoard : tracks players scores over time
 - PubSub : allows us to communicate altogether
 
+![Game Design](./diagram.png)
+
 ## Features
 
 - TypeScript typed for safety and clarity
