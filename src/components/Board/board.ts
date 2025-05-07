@@ -9,10 +9,6 @@ const MAX_GAME_TURNS = 9;
  * playable for the whole family
  */
 export class Board {
-  /**
-   * For now we pass the UI method to a handler, in furture we can decouple these further
-   * however rightnow the Board is tightly coupled to the Game due to the nature of Tic Tac Toe
-   */
   Board: TicTacToeBoardHandlerReturnType;
   BoardUI: UIHandlerReturnType;
   cells: CELLS[];
@@ -65,7 +61,6 @@ export class Board {
   }
 
   checkForWinner() {
-    /** These are the winning combinations for a game of tic tac toe */
     const winningCombinations = [
       [0, 1, 2],
       [3, 4, 5],
@@ -98,25 +93,19 @@ export class Board {
     this.checkForWinner();
 
     if (this.hasWinner) {
-      if (this.pubsub) {
-        this.pubsub.publish(GAME_EVENTS.ON_WIN, this.turn);
-      }
+      this.pubsub?.publish(GAME_EVENTS.ON_WIN, this.turn);
       this.BoardUI.removeAllEventListeners();
       return;
     }
 
     if (this.turns === MAX_GAME_TURNS) {
-      if (this.pubsub) {
-        this.pubsub.publish(GAME_EVENTS.ON_DRAW);
-      }
+      this.pubsub?.publish(GAME_EVENTS.ON_DRAW);
       this.BoardUI.removeAllEventListeners();
       return;
     }
 
     this.turn = this.turn === "X" ? "O" : "X";
-    if (this.pubsub) {
-      this.pubsub.publish(GAME_EVENTS.ON_NEXT_TURN, this.turn);
-    }
+    this.pubsub?.publish(GAME_EVENTS.ON_NEXT_TURN, this.turn);
     this.BoardUI.removeEventListener(element.id as CELLS);
   }
 

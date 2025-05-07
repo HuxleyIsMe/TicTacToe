@@ -82,6 +82,7 @@ export const TicTacToeBoardHandler = () : TicTacToeBoardHandlerReturnType  => {
     tile.style.color = turn === "X" ? "black" : "white";
     tile.innerHTML = `<span>${turn}</span>`;
   };
+  
   const renderBoard = (root: string) => {
     document.querySelector<HTMLDivElement>(root)!.innerHTML = `
           <div class="${styles.row} ${styles["border-bottom"]}" data-name="row" >
@@ -176,10 +177,5 @@ export const TicTacToeBoardHandler = () : TicTacToeBoardHandlerReturnType  => {
     renderBoard,
     markWinningTile,
     markTile,
-
   };
 };
-
-export type TicTacToeBoardHandlerI = typeof TicTacToeBoardHandler;
-export type UIHandlerT = typeof UIHandler;
-

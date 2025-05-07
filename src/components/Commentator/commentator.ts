@@ -6,37 +6,36 @@ export class Commentator {
     this.root = root;
   }
 
-  onStart(turn: Player) {
+  checkThereIsARoot() {
     if (!document.getElementById(this.root)) {
       throw new Error("no root element for the commentator");
     }
+
+  }
+
+  onStart(turn: Player) {
+    this.checkThereIsARoot();
     document.getElementById(
       this.root
     )!.innerHTML = `<span aria-live="polite">${turn} starts!</span>`;
   }
 
   onWin(turn: Player) {
-    if (!document.getElementById(this.root)) {
-      throw new Error("no root element for the commentator");
-    }
+    this.checkThereIsARoot();
     document.getElementById(
       this.root
     )!.innerHTML = `<span aria-live="polite">${turn} Wins!</span>`;
   }
 
   onNextTurn(turn: Player) {
-    if (!document.getElementById(this.root)) {
-      throw new Error("no root element for the commentator");
-    }
+    this.checkThereIsARoot();
     document.getElementById(
       this.root
     )!.innerHTML = `<span aria-live="polite">${turn} turn!</span>`;
   }
 
   onDraw() {
-    if (!document.getElementById(this.root)) {
-      throw new Error("no root element for the commentator");
-    }
+    this.checkThereIsARoot();
     document.getElementById(
       this.root
     )!.innerHTML = `<span aria-live="polite">Its a draw!</span>`;
