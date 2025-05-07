@@ -162,9 +162,14 @@ body {
   align-items: flex-start;
   flex-direction: column;
   width: fit-content;
-  /* background: pink; */
   height: 90vh;
   
+}
+
+#aiPlayer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 #commentator {
