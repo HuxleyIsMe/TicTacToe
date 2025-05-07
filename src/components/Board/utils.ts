@@ -1,7 +1,19 @@
 import styles from "./board.module.css";
 import type { CELLS } from "../shared.types";
 
-export const BoardUIHandler = () => {
+
+
+export interface UIHandlerReturnType {
+  attachListeners: (cells: CELLS,  callback: (element: HTMLElement) => void) => void;
+  attachResetListener: (cb: VoidFunction) => void,
+  removeAllEventListeners: VoidFunction,
+  removeEventListener: (id: CELLS) => void,
+}
+
+/**
+ * Generic UI Handler to enable us to work easily with event listeners on the board.
+ */
+export const UIHandler = () => {
   const cellToListeners = {} as Record<CELLS, AbortController>;
 
   const removeEventListener = (id: CELLS) => {
@@ -11,7 +23,7 @@ export const BoardUIHandler = () => {
   const removeAllEventListeners = () => {
     Object.values(cellToListeners).forEach((c) => c.abort());
   };
-  const attachListener = (
+  const attachListeners = (
     cell: CELLS,
     callback: (element: HTMLElement) => void
   ) => {
@@ -40,6 +52,30 @@ export const BoardUIHandler = () => {
   const attachResetListener = (cb: VoidFunction) => {
     document.querySelector(`#restartButton`)!.addEventListener("click", cb);
   };
+
+
+  return {
+    attachListeners,
+    attachResetListener,
+    removeAllEventListeners,
+    removeEventListener,
+  };
+
+
+}
+
+
+export interface TicTacToeBoardHandlerReturnType {
+  markTile: (tile: HTMLElement, turn: string) => void,
+  markWinningTile: (id: string) => void,
+  renderBoard: (root: string) => void,
+}
+
+/**
+ * A more specific class to enable us to draw a TicTacToe board,
+ * to change tiles as decided on click.
+ */
+export const TicTacToeBoardHandler = () : TicTacToeBoardHandlerReturnType  => {
 
   const markTile = (tile: HTMLElement, turn: string) => {
     tile.style.background = turn === "X" ? "yellow" : "blue";
@@ -138,13 +174,12 @@ export const BoardUIHandler = () => {
 
   return {
     renderBoard,
-    attachListener,
     markWinningTile,
     markTile,
-    attachResetListener,
-    removeAllEventListeners,
-    removeEventListener,
+
   };
 };
 
-type BoardUIHandler = typeof BoardUIHandler;
+export type TicTacToeBoardHandlerI = typeof TicTacToeBoardHandler;
+export type UIHandlerT = typeof UIHandler;
+

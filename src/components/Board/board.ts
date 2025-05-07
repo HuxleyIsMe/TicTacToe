@@ -1,6 +1,6 @@
 import { Player, CELLS, GAME_EVENTS } from "../shared.types";
 import type { PubSubType } from "../index";
-import { BoardUIHandler } from "./utils";
+import { UIHandler, UIHandlerReturnType,TicTacToeBoardHandler, TicTacToeBoardHandlerReturnType } from "./utils";
 
 const MAX_GAME_TURNS = 9;
 
@@ -13,7 +13,8 @@ export class Board {
    * For now we pass the UI method to a handler, in furture we can decouple these further
    * however rightnow the Board is tightly coupled to the Game due to the nature of Tic Tac Toe
    */
-  BoardUIHandler: any;
+  Board: TicTacToeBoardHandlerReturnType;
+  BoardUI: UIHandlerReturnType;
   cells: CELLS[];
   hasWinner: boolean;
   gameGrid: string[];
@@ -21,10 +22,12 @@ export class Board {
   turn: Player;
   turns: number;
 
+
   pubsub?: PubSubType;
 
   constructor(root: string) {
-    this.BoardUIHandler = BoardUIHandler();
+    this.Board = TicTacToeBoardHandler();
+    this.BoardUI = UIHandler();
     this.hasWinner = false;
     this.gameGrid = new Array(9).fill("");
     this.cells = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
@@ -46,7 +49,7 @@ export class Board {
 
   start(): void {
     this.randomPlayerStart();
-    this.BoardUIHandler.renderBoard(this.root);
+    this.Board.renderBoard(this.root);
     this.attachListeners();
     if (this.pubsub) {
       this.pubsub.publish(GAME_EVENTS.ON_START, this.turn);
@@ -54,7 +57,7 @@ export class Board {
   }
 
   reset() {
-    this.BoardUIHandler.removeAllEventListeners();
+    this.BoardUI.removeAllEventListeners();
     this.gameGrid = new Array(9).fill("");
     this.turns = 0;
     this.hasWinner = false;
@@ -63,7 +66,7 @@ export class Board {
 
   checkForWinner() {
     /** These are the winning combinations for a game of tic tac toe */
-    const winningCobinations = [
+    const winningCombinations = [
       [0, 1, 2],
       [3, 4, 5],
       [6, 7, 8],
@@ -74,14 +77,14 @@ export class Board {
       [2, 4, 6],
     ];
 
-    winningCobinations.some(([a, b, c]) => {
+    winningCombinations.some(([a, b, c]) => {
       if (
         this.gameGrid[a] === this.gameGrid[b] &&
         this.gameGrid[b] === this.gameGrid[c] &&
         this.gameGrid[a]
       ) {
         [a, b, c].forEach((tile) => {
-          this.BoardUIHandler.markWinningTile(this.cells[tile]);
+          this.Board.markWinningTile(this.cells[tile]);
         });
         this.hasWinner = true;
       }
@@ -90,7 +93,7 @@ export class Board {
 
   handleClick(element: HTMLElement): void {
     this.turns++;
-    this.BoardUIHandler.markTile(element, this.turn);
+    this.Board.markTile(element, this.turn);
     this.gameGrid[this.cells.indexOf(element.id as CELLS)] = this.turn;
     this.checkForWinner();
 
@@ -98,7 +101,7 @@ export class Board {
       if (this.pubsub) {
         this.pubsub.publish(GAME_EVENTS.ON_WIN, this.turn);
       }
-      this.BoardUIHandler.removeAllEventListeners(element);
+      this.BoardUI.removeAllEventListeners();
       return;
     }
 
@@ -106,7 +109,7 @@ export class Board {
       if (this.pubsub) {
         this.pubsub.publish(GAME_EVENTS.ON_DRAW);
       }
-      this.BoardUIHandler.removeAllEventListeners(element);
+      this.BoardUI.removeAllEventListeners();
       return;
     }
 
@@ -114,14 +117,14 @@ export class Board {
     if (this.pubsub) {
       this.pubsub.publish(GAME_EVENTS.ON_NEXT_TURN, this.turn);
     }
-    this.BoardUIHandler.removeEventListener(element.id as CELLS);
+    this.BoardUI.removeEventListener(element.id as CELLS);
   }
 
   attachListeners(): void {
-    this.BoardUIHandler.attachResetListener(this.reset.bind(this));
+    this.BoardUI.attachResetListener(this.reset.bind(this));
     this.cells.forEach((cell) => {
       let boundHandler = this.handleClick.bind(this);
-      this.BoardUIHandler.attachListener(cell, boundHandler);
+      this.BoardUI.attachListeners(cell, boundHandler);
     });
   }
 }
