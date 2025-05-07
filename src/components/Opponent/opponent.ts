@@ -34,7 +34,7 @@ export class Opponent {
         );
     }
 
-    onNextTurn() {
+    onNextTurn({gameState, cellIDs}) {
 
 
 

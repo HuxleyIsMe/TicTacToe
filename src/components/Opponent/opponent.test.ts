@@ -1,6 +1,6 @@
 import {Opponent} from "./opponent";
 
-// const CELL_IDS = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
+const CELL_IDS = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
 
 describe('Opponent', () => {
     let GeffTheOpponent: Opponent;
@@ -21,11 +21,12 @@ describe('Opponent', () => {
 
 
     it('onNextTurn it will select an empty available square', () => {
-        // const mockGameState = ["", "", "", "X", "", "X", "", "", "O"];
+        const mockGameState = new Array(8).fill("X");
         GeffTheOpponent.onStart();
         document.getElementById("flexSwitchCheckDefault")!.click();
         expect(GeffTheOpponent.isPlaying).toBe(true);
-        GeffTheOpponent.onNextTurn();
+        let res = GeffTheOpponent.onNextTurn({gameState: [...mockGameState, ""], cellIDs: CELL_IDS});
+        expect(res).toBe('i')
 
     })
 })
