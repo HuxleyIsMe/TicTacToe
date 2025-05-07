@@ -40,10 +40,10 @@ export class Opponent {
     }
 
     onNextTurn({gameState, cellIDs, turn}) {
-        if(turn === this.playsAs) {
+        if(turn === this.playsAs && this.isPlaying) {
             let nextAvailableCells = gameState.indexOf("")
             let buttonToClick = cellIDs[nextAvailableCells];
-            setTimeout(()=>document.getElementById(buttonToClick)?.click(), 1000); // wrap in timeout to make it a lil more human
+            setTimeout(()=>document.getElementById(buttonToClick)?.click(), 2000); // wrap in timeout to make it a lil more human
             return buttonToClick
         }
     }
