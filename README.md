@@ -6,6 +6,8 @@ this is my version of the classic tic tac toe game! Please go ahead and have fun
 
 ## Design
 
+I wanted to use a Pubsub approach because of curiosity and i wanted to work with injecting to the DOM/mutating the HTML as opposed to pre coding the layout in the HTML tree. I did this deliberetly because im curious about how programs such as React or vue handle dom manipulation - its building towards something else!
+
 The Game is composed of four classes:
 
 - Board : handles rendering of the board and the game state
